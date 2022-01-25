@@ -39,16 +39,16 @@
                                             {{ $item->id }}
                                         </td>
                                         <td>
-                                            {{ $item->mahasiswa['nim'] }}
+                                            {{ $item->nim }}
                                         </td>
                                         <td>
                                             {{ $item->judul_proposal }}
                                         </td>
                                         <td>
-                                            {{ $item->file_proposal }}
+                                            {{ $item->file }}
                                         </td>
                                         <td>
-                                            <a type="button" href="{{ $item->file_proposal }}" download
+                                            <a type="button" href="{{ $item->file }}" download
                                                 class="btn-sm btn-inverse-info btn-rounded m-lg-1" data-toggle="tooltip"
                                                 data-placement="top" title="Download File">
                                                 <i class="mdi mdi-format-vertical-align-bottom"></i>

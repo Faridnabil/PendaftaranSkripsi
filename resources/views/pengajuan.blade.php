@@ -12,12 +12,16 @@
         <table>
             <div class="form-group">
                 <label for="nim">NIM</label>
-                <select class="custom-select" id="nim" name="nim" value="{{ old('nim') }}">
-                    <option selected disabled>Select one</option>
-                    @foreach ($viewMhs as $item)
-                        <option value="{{ $item->id }}">{{ $item->nim }}</option>
-                    @endforeach
-                </select>
+                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
+                @error('nim')
+                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong>
+                        <span> {{ $message }} </span>
+                        <br>
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="judul_proposal">Judul Proposal</label>
@@ -34,17 +38,16 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="file_proposal">File Proposal</label>
-                <input type="file" class="form-control" name="file_proposal" id="file_proposal"
-                    value="{{ old('file_proposal') }}">
-                @error('file_proposal')
-                    <div class="alert alert-danger alert-dismissible" style="margin-top:-20px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
+                <label>File Proposal</label>
+                <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+                @error('file')
+                    <p class="text-danger pt-1"><small> {{ $message }}</small></p>
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit">Submit</button>

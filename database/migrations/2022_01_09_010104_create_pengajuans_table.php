@@ -15,10 +15,9 @@ class CreatePengajuansTable extends Migration
     {
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('nim');
-            $table->foreign('nim')->references('nim')->on('mahasiswa');
+            $table->string('nim');
             $table->string('judul_proposal', 100);
-            $table->string('file_proposal', 500);
+            $table->text('file_proposal');
             $table->timestamps();
         });
     }

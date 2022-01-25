@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\Pengajuan;
 use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,13 +33,13 @@ class ViewController extends Controller
     //Pengajuan
     public function pengajuan()
     {
-        $data = Mahasiswa::all();
+        $data = Pengajuan::all();
         return view('pengajuan', ['viewMhs' => $data]);
     }
 
     public function data_pengajuan()
     {
-        $data = Mahasiswa::all();
+        $data = Pengajuan::all();
         return view('data-pengajuan', ['viewMhs' => $data]);
     }
 
