@@ -5,55 +5,79 @@
 @endsection
 
 @section('konten')
-    <h4>Pengajuan Proposal Mahasiswa</h4>
-    <hr>
-    <form action="simpanPengajuan" method="POST" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <table>
-            <div class="form-group">
-                <label for="nim">NIM</label>
-                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
-                @error('nim')
-                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
+    <button class="btn btn-primary"> <a href="pengajuan" style="text-decoration:none">Status Pengajuan </a></button>
+    <button class="btn btn-primary"> <a href="daftar-pengajuan" style="text-decoration:none"> Daftar Pengajuan </a></button>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Data Pengajuan</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ID Pengajuan
+                                    </th>
+                                    <th>
+                                        NIM
+                                    </th>
+                                    <th>
+                                        Judul Proposal
+                                    </th>
+                                    <th>
+                                        File Proposal
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($viewMhs as $item)
+                                    <tr>
+                                        <td>
+                                            {{ $item->id }}
+                                        </td>
+                                        <td>
+                                            {{ $item->nim }}
+                                        </td>
+                                        <td>
+                                            {{ $item->judul_proposal }}
+                                        </td>
+                                        <td>
+                                            {{ $item->file }}
+                                        </td>
+                                        <td>
+                                            <a type="button" href="{{ $item->file }}" download
+                                                class="btn-sm btn-inverse-info btn-rounded m-lg-1" data-toggle="tooltip"
+                                                data-placement="top" title="Download File">
+                                                <i class="mdi mdi-format-vertical-align-bottom"></i>
+                                            </a>
+
+                                            @if (auth()->user()->level == 'admin')
+                                                <a type="button" href="/edit-sm/{{ $item->id }}"
+                                                    class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit">
+                                                    <i class="mdi mdi-border-color"></i>
+                                                </a>
+                                                <a type="button" href="/hapus-sm/{{ $item->id }}"
+                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
+                                                    class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                            </tbody>
+                            @endforeach
+                        </table>
                     </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="judul_proposal">Judul Proposal</label>
-                <input type="text" class="form-control" name="judul_proposal" id="judul_proposal"
-                    value="{{ old('judul_proposal') }}"> <br />
-                @error('judul_proposal')
-                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label>File Proposal</label>
-                <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">
-                <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
-                    <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                    </span>
                 </div>
-                @error('file')
-                    <p class="text-danger pt-1"><small> {{ $message }}</small></p>
-                @enderror
             </div>
-            <button type="submit" class="btn btn-primary" name="submit" value="Submit">Submit</button>
-        </table>
-    </form>
-    </table>
+        </div>
+    </div>
 @endsection
 
 @section('footer')

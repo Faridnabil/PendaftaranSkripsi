@@ -1,11 +1,11 @@
 @extends('template')
+@include('alert')
 
 @section('tittle')
     Pendaftaran Skripsi atau Tugas Akhir
 @endsection
 
 @section('konten')
-    <h4 class="card-title">Dashboard</h4>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
@@ -16,7 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Id Pengajuan
+                                        ID Pengajuan
                                     </th>
                                     <th>
                                         NIM
@@ -53,6 +53,21 @@
                                                 data-placement="top" title="Download File">
                                                 <i class="mdi mdi-format-vertical-align-bottom"></i>
                                             </a>
+
+                                            @if (auth()->user()->level == 'admin')
+                                                <a type="button" href="/edit-sm/{{ $item->id }}"
+                                                    class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit">
+                                                    <i class="mdi mdi-border-color"></i>
+                                                </a>
+                                                <a type="button" href="/hapus-sm/{{ $item->id }}"
+                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
+                                                    class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            @endif
+
                                         </td>
                                     </tr>
                             </tbody>

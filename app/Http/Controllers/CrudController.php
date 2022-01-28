@@ -6,6 +6,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Pengajuan;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,20 +54,68 @@ class CrudController extends Controller
         ], $messages);
 
         $file = $a->file('file');
-        $nama_file = time() . "-" . $file->getClientOriginalName();
-        $ekstensi = $file->getClientOriginalExtension();
-        $ukuran = $file->getSize();
-        $patAsli = $file->getRealPath();
-        $namaFolder = 'file_proposal';
-        $file->move($namaFolder, $nama_file);
-        $pathPublic = $namaFolder . "/" . $nama_file;
+        if (empty($file)) {
+            pengajuan::create([
+                'nim' => $a->nim,
+                'judul_proposal' => $a->judul_proposal,
+            ], $cekvalidasi);
+        } else {
+            $nama_file = time() . "-" . $file->getClientOriginalName();
+            $ekstensi = $file->getClientOriginalExtension();
+            $ukuran = $file->getSize();
+            $patAsli = $file->getRealPath();
+            $namaFolder = 'file_proposal';
+            $file->move($namaFolder, $nama_file);
+            $pathPublic = $namaFolder . "/" . $nama_file;
 
-        pengajuan::create([
+            pengajuan::create([
+                'nim' => $a->nim,
+                'judul_proposal' => $a->judul_proposal,
+                'file' => $pathPublic
+            ], $cekvalidasi);
+        }
+        return redirect('/pengajuan')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    public function edit_pengajuan($id)
+    {
+        $data = Pengajuan::find($id);
+        return view("pengajuan", ['data' => $data]);
+    }
+    public function updateSm($id, Request $a)
+    {
+        //Validasi
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'max' => 'Ukuran tidak boleh lebih dari 2mb',
+            'numeric' => 'Harus menggunakan angka',
+            'file.required' => 'File surat tidak boleh kosong!',
+            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+        ];
+        $cekValidasi = $a->validate([
+            'nim' => 'required',
+            'judul_proposal' => 'required',
+            'file' => 'required|mimes:pdf|max:2048',
+        ], $messages);
+
+        $file = $a->file('file');
+        if (file_exists($file)) {
+            $nama_file = time() . "-" . $file->getClientOriginalName();
+            $folder = 'file';
+            $file->move($folder, $nama_file);
+            $path = $folder . "/" . $nama_file;
+            //delete
+            $data = Pengajuan::where('id', $id)->first();
+            File::delete($data->file);
+        } else {
+            $path = $a->pathFile;
+        }
+        Pengajuan::where("id", "$id")->update([
             'nim' => $a->nim,
             'judul_proposal' => $a->judul_proposal,
-            'file' => $pathPublic
-        ], $cekvalidasi);
-        return redirect('/pengajuan')->with('Berhasil', 'Data berhasil di simpan!');
+            'file' => $path
+        ], $cekValidasi);
+        return redirect('/pengajuan')->with('toast_success', 'Data berhasil di update!');
     }
 
     //Input-Dashboard_Mahasiswa
@@ -206,6 +255,9 @@ class CrudController extends Controller
         mahasiswa::create($cekvalidasi);
         return redirect('index')->with('Berhasil', 'Data berhasil di simpan!');
     }
+
+    //Edit-Pengajuan
+
 
     //END CRUD
 

@@ -10,6 +10,6 @@ class Pengajuan extends Model
     use HasFactory;
     protected $table = "pengajuan";
     protected $primaryKey = "id";
-    protected $fillable = ["nim", "judul_proposal", "file_proposal"];
+    protected $fillable = ["nim", "judul_proposal", "file"];
     public $timestamps = false;
 }

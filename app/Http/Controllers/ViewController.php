@@ -43,6 +43,12 @@ class ViewController extends Controller
         return view('data-pengajuan', ['viewMhs' => $data]);
     }
 
+    public function status_pengajuan(){
+        $data = Pengajuan::all();
+        return view('daftar-pengajuan', ['viewMhs' => $data]);
+    }
+
+    //Dashboard
     public function Mahasiswa()
     {
         $data1 = Prodi::all();
