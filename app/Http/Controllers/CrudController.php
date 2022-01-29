@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Pengajuan;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -77,12 +78,14 @@ class CrudController extends Controller
         return redirect('/pengajuan')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
-    public function edit_pengajuan($id)
+    //Edit & Update
+    public function edit_pengajuan($idPengajuan)
     {
-        $data = Pengajuan::find($id);
-        return view("pengajuan", ['data' => $data]);
+        $data1 = Status::all();
+        $data2 = Pengajuan::find($idPengajuan);
+        return view("edit-pengajuan", ['status' => $data1], ['pengajuan' => $data2]);
     }
-    public function updateSm($id, Request $a)
+    public function update_pengajuan($idPengajuan, Request $a)
     {
         //Validasi
         $messages = [
@@ -101,21 +104,35 @@ class CrudController extends Controller
         $file = $a->file('file');
         if (file_exists($file)) {
             $nama_file = time() . "-" . $file->getClientOriginalName();
-            $folder = 'file';
+            $folder = 'file_proposal';
             $file->move($folder, $nama_file);
             $path = $folder . "/" . $nama_file;
             //delete
-            $data = Pengajuan::where('id', $id)->first();
+            $data = Pengajuan::where('id', $idPengajuan)->first();
             File::delete($data->file);
         } else {
             $path = $a->pathFile;
         }
-        Pengajuan::where("id", "$id")->update([
+        Pengajuan::where("id", "$idPengajuan")->update([
             'nim' => $a->nim,
             'judul_proposal' => $a->judul_proposal,
             'file' => $path
         ], $cekValidasi);
         return redirect('/pengajuan')->with('toast_success', 'Data berhasil di update!');
+    }
+
+    //Delete
+    public function hapus_pengajuan($idPengajuan)
+    {
+        try {
+            $data = Pengajuan::where('id', $idPengajuan)->first();
+            File::delete($data->file);
+            Pengajuan::where('id', $idPengajuan)->delete();
+            return redirect('/pengajuan')->with('toast_success', 'Data berhasil di hapus!');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/pengajuan')->with('toast_error', 'Data tidak bisa di hapus!');
+        }
     }
 
     //Input-Dashboard_Mahasiswa

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengajuansTable extends Migration
+class CreateStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreatePengajuansTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengajuan', function (Blueprint $table) {
+        Schema::create('status', function (Blueprint $table) {
             $table->id();
-            $table->string('nim');
-            $table->string('judul_proposal', 100);
-            $table->text('file');
+            $table->string('status',50);
             $table->timestamps();
-            $table->unsignedBigInteger('id_status');
-            $table->foreign('id_status')->references('id')->on('status');
         });
     }
 
@@ -31,6 +27,6 @@ class CreatePengajuansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengajuan');
+        Schema::dropIfExists('status');
     }
 }

@@ -32,12 +32,12 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
 
 Route::group(['middleware' => ['auth', 'ceklevel:mahasiswa,admin']], function(){
     Route::get('pengajuan', [ViewController::class, 'pengajuan']);
+    Route::get('daftarPengajuan', [ViewController::class, 'daftar_pengajuan']);
     //CrudController-Pengajuan
-    Route::get('tambah', [CrudController::class, 'tambah']);
-    Route::get('edit/{nim}', [CrudController::class, 'edit']);
+    Route::get('editPengajuan/{id}', [CrudController::class, 'edit_pengajuan']);
     Route::post('simpanPengajuan', [CrudController::class, 'simpan_pengajuan']);
-    Route::post('update/{nim}', [CrudController::class, 'update']);
-    Route::get('/hapus/{nim}', [CrudController::class, 'hapus']);
+    Route::post('updatePengajuan/{id}', [CrudController::class, 'update_pengajuan']);
+    Route::get('hapusPengajuan/{id}', [CrudController::class, 'hapus_pengajuan']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:dosen,admin']], function(){

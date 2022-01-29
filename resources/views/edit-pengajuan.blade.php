@@ -5,14 +5,13 @@
 @endsection
 
 @section('konten')
-    <h4>Pengajuan Proposal Mahasiswa</h4>
-    <button class="btn-primary"> <a href="pengajuan">Status Pengajuan</button> <button class="btn-primary"> <a href="daftar-pengajuan"> Daftar Pengajuan</button>    <hr>
-    <form action="editPengajuan" method="POST" enctype="multipart/form-data">
+    <h4>Edit Proposal Mahasiswa</h4>
+    <form action="/updatePengajuan/{{ $pengajuan->id }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
                 <label for="nim">NIM</label>
-                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
+                <input type="text" class="form-control" name="nim" id="nim" value="{{ $pengajuan->nim }}"> <br />
                 @error('nim')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -26,7 +25,7 @@
             <div class="form-group">
                 <label for="judul_proposal">Judul Proposal</label>
                 <input type="text" class="form-control" name="judul_proposal" id="judul_proposal"
-                    value="{{ old('judul_proposal') }}"> <br />
+                    value="{{ $pengajuan->judul_proposal }}"> <br />
                 @error('judul_proposal')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -39,9 +38,11 @@
             </div>
             <div class="form-group">
                 <label>File Proposal</label>
-                <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">
+                <input type="file" class="file-upload-default" name="file">
+                <input type="hidden" name="pathFile" value="{{ $pengajuan->file }}">
                 <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <input type="text" class="form-control file-upload-info" disabled
+                        placeholder="{{ $pengajuan->file }}">
                     <span class="input-group-append">
                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                     </span>
@@ -51,6 +52,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit">Edit Data</button>
+            <a href="/pengajuan" class="btn btn-light">Cancel</a>
         </table>
     </form>
     </table>

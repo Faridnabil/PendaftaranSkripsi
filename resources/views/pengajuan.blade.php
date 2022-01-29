@@ -5,8 +5,8 @@
 @endsection
 
 @section('konten')
-    <button class="btn btn-primary"> <a href="pengajuan" style="text-decoration:none">Status Pengajuan </a></button>
-    <button class="btn btn-primary"> <a href="daftar-pengajuan" style="text-decoration:none"> Daftar Pengajuan </a></button>
+    <a type="Button" class="btn btn-primary" href="pengajuan">Status Pengajuan </a>
+    <a type="Button" class="btn btn-inverse-primary" href="daftarPengajuan"> Daftar Pengajuan </a>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
@@ -29,6 +29,9 @@
                                         File Proposal
                                     </th>
                                     <th>
+                                        Status
+                                    </th>
+                                    <th>
                                         Action
                                     </th>
                                 </tr>
@@ -46,7 +49,14 @@
                                             {{ $item->judul_proposal }}
                                         </td>
                                         <td>
-                                            {{ $item->file }}
+                                            {{ $item->status['status']}}
+                                        </td>
+                                        <td>
+                                            @empty($item->file)
+                                                <span class="badge badge-danger">Tidak ada</span>
+                                            @else
+                                                <span class="badge badge-success">Ada</span>
+                                            @endempty
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download
@@ -56,12 +66,12 @@
                                             </a>
 
                                             @if (auth()->user()->level == 'admin')
-                                                <a type="button" href="/edit-sm/{{ $item->id }}"
+                                                <a type="button" href="/editPengajuan/{{ $item->id }}"
                                                     class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
                                                     data-placement="top" title="Edit">
                                                     <i class="mdi mdi-border-color"></i>
                                                 </a>
-                                                <a type="button" href="/hapus-sm/{{ $item->id }}"
+                                                <a type="button" href="/hapusPengajuan/{{ $item->id }}"
                                                     onclick="return confirm('Apakah anda yakin menghapus data?')"
                                                     class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
                                                     data-toggle="tooltip" data-placement="top" title="Delete">

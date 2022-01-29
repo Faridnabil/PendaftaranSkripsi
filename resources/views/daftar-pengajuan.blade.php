@@ -6,7 +6,8 @@
 
 @section('konten')
     <h4>Pengajuan Proposal Mahasiswa</h4>
-    <button class="btn-primary"> <a href="pengajuan">Status Pengajuan</button> <button class="btn-primary"> <a href="daftar-pengajuan"> Daftar Pengajuan</button>    <hr>
+    <a type="Button" class="btn btn-inverse-primary" href="pengajuan">Status Pengajuan </a>
+    <a type="Button" class="btn btn-primary" href="daftarPengajuan"> Daftar Pengajuan </a>
     <form action="simpanPengajuan" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
@@ -37,6 +38,7 @@
                     </div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label>File Proposal</label>
                 <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">

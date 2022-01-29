@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,9 @@ class ViewController extends Controller
     //Pengajuan
     public function pengajuan()
     {
-        $data = Pengajuan::all();
-        return view('pengajuan', ['viewMhs' => $data]);
+        $data1 = Pengajuan::all();
+        $data2 = Status::all();
+        return view('pengajuan', ['viewMhs' => $data1], ['viewMhs' => $data2]);
     }
 
     public function data_pengajuan()
@@ -43,7 +45,7 @@ class ViewController extends Controller
         return view('data-pengajuan', ['viewMhs' => $data]);
     }
 
-    public function status_pengajuan(){
+    public function daftar_pengajuan(){
         $data = Pengajuan::all();
         return view('daftar-pengajuan', ['viewMhs' => $data]);
     }
