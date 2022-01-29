@@ -27,13 +27,15 @@ class CrudController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'level' => 'required',
         ], $messages);
 
         User::create([
             'name' => $a->name,
             'email' => $a->email,
-            'password' => Hash::make($a->password)
-        ]);
+            'password' => Hash::make($a->password),
+            'level' => $a ->level,
+        ], $cekvalidasi);
         return redirect('/login')->with('Berhasil', 'Akun berhasil dibuat!');
     }
 

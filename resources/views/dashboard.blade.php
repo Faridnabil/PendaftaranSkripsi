@@ -46,7 +46,7 @@
                                             {{ $item->nid }}
                                         </td>
                                         <td>
-                                            {{ $item->nama }}
+                                            {{ $item->name }}
                                         </td>
                                         <td>
                                             {{ $item->email }}
@@ -111,7 +111,7 @@
                                             {{ $item->nim}}
                                         </td>
                                         <td>
-                                            {{ $item->nama}}
+                                            {{ $item->name}}
                                         </td>
                                         <td>
                                             {{ $item->email}}

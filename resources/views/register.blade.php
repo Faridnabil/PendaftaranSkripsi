@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('Spica/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('Spica/images/favicon.png') }}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -36,14 +38,13 @@
                                     <div class="form-group">
                                         <label for="name">Nama Lengkap</label>
                                         <input type="text" class="form-control" name="name" id="name"
-                                            value="{{ old('name') }}"> <br />
+                                            value="{{ old('name') }}">
                                         @error('name')
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <strong>Warning!</strong>
                                                 <span> {{ $message }} </span>
-                                                <br>
                                             </div>
                                         @enderror
                                     </div>
@@ -57,7 +58,6 @@
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <strong>Warning!</strong>
                                                 <span> {{ $message }} </span>
-                                                <br>
                                             </div>
                                         @enderror
                                     </div>
@@ -71,10 +71,25 @@
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <strong>Warning!</strong>
                                                 <span> {{ $message }} </span>
-                                                <br>
                                             </div>
                                         @enderror
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="level">Level</label>
+                                        <select class="custom-select" id="level" name="level" value="{{old('level')}}">
+                                            <option selected disabled>Select one</option>
+                                            <option value="mahasiswa">Mahasiswa</option>
+                                            <option value="dosen">Dosen</option>
+                                        </select>
+                                        @error('email')
+                                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <strong>Warning!</strong>
+                                                <span> {{ $message }} </span>
+                                            </div>
+                                        @enderror
+                                    </div>
                                         <button type="submit" class="btn btn-primary" name="submit"
                                             value="Submit">Submit</button>
                                         <div class="text-center mt-4 font-weight-light">

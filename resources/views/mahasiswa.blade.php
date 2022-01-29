@@ -21,9 +21,21 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="id_user">Nama Lengkap</label>
-            <input type="text" class="form-control" id="id_user" name="id_user" value="{{old('id_user')}}">
-            @error('id_user')
+            <label for="name">Nama Lengkap</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}">
+            @error('name')
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Warning!</strong>
+                <span> {{$message}} </span>
+                <br>
+            </div>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="{{old('email')}}">
+            @error('email')
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>Warning!</strong>

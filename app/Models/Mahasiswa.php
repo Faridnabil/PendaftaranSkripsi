@@ -10,7 +10,7 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $table = "mahasiswa";
     protected $primaryKey = "nim";
-    protected $fillable = ["nim", "id_user", "jenis_kelamin", "id_prodi", "tahun_masuk", "foto"];
+    protected $fillable = ["nim", "name", "email", "jenis_kelamin", "id_prodi", "tahun_masuk", "foto"];
     public $timestamps = false;
 
     public function prodi()
@@ -21,5 +21,10 @@ class Mahasiswa extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'id_user');
+    }
+
+    public function fotoUser()
+    {
+        return $this->hasMany(User::class);
     }
 }
