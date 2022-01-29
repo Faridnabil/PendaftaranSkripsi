@@ -49,14 +49,15 @@
                                             {{ $item->judul_proposal }}
                                         </td>
                                         <td>
-                                            {{ $item->status['status']}}
+                                            @empty($item->file)
+                                                <label class="badge badge-danger">Tidak ada</label>
+                                            @else
+                                                <label class="badge badge-success">Ada</label>
+                                            @endempty
                                         </td>
                                         <td>
-                                            @empty($item->file)
-                                                <span class="badge badge-danger">Tidak ada</span>
-                                            @else
-                                                <span class="badge badge-success">Ada</span>
-                                            @endempty
+                                            <label class="badge {{$item->status == 1 ? 'badge-success' : 'badge-warning'}}">
+                                                {{$item->status == 1 ? 'Diterima' : 'Pending'}} </label>
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download

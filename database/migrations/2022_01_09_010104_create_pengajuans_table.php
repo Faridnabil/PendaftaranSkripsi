@@ -19,8 +19,6 @@ class CreatePengajuansTable extends Migration
             $table->string('judul_proposal', 100);
             $table->text('file');
             $table->timestamps();
-            $table->unsignedBigInteger('id_status');
-            $table->foreign('id_status')->references('id')->on('status');
         });
     }
 

@@ -11,11 +11,7 @@ class Pengajuan extends Model
     use HasFactory;
     protected $table = "pengajuan";
     protected $primaryKey = "id";
-    protected $fillable = ["nim", "judul_proposal", "file", "id_status"];
+    protected $fillable = ["nim", "judul_proposal", "file", "status"];
     public $timestamps = false;
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class,'id_status');
-    }
 }

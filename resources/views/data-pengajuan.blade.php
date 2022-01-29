@@ -28,6 +28,9 @@
                                         File Proposal
                                     </th>
                                     <th>
+                                        Status
+                                    </th>
+                                    <th>
                                         Action
                                     </th>
                                 </tr>
@@ -46,6 +49,9 @@
                                         </td>
                                         <td>
                                             {{ $item->file }}
+                                        </td>
+                                        <td>
+                                            {{$item->status}}
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download

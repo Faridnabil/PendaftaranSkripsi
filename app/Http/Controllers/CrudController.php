@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Pengajuan;
+use App\Models\Prodi;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
@@ -34,7 +35,7 @@ class CrudController extends Controller
             'name' => $a->name,
             'email' => $a->email,
             'password' => Hash::make($a->password),
-            'level' => $a ->level,
+            'level' => $a->level,
         ], $cekvalidasi);
         return redirect('/login')->with('Berhasil', 'Akun berhasil dibuat!');
     }
@@ -83,10 +84,10 @@ class CrudController extends Controller
     //Edit & Update
     public function edit_pengajuan($idPengajuan)
     {
-        $data1 = Status::all();
-        $data2 = Pengajuan::find($idPengajuan);
-        return view("edit-pengajuan", ['status' => $data1], ['pengajuan' => $data2]);
+        $data = Pengajuan::find($idPengajuan);
+        return view("edit-pengajuan", ['status' => $data]);
     }
+
     public function update_pengajuan($idPengajuan, Request $a)
     {
         //Validasi
@@ -131,7 +132,6 @@ class CrudController extends Controller
             File::delete($data->file);
             Pengajuan::where('id', $idPengajuan)->delete();
             return redirect('/pengajuan')->with('toast_success', 'Data berhasil di hapus!');
-
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/pengajuan')->with('toast_error', 'Data tidak bisa di hapus!');
         }
@@ -159,9 +159,10 @@ class CrudController extends Controller
         if (empty($file)) {
             mahasiswa::create([
                 'nim' => $a->nim,
+                'name' => $a->name,
+                'email' => $a->email,
                 'id_prodi' => $a->id_prodi,
                 'jenis_kelamin' => $a->jenis_kelamin,
-                'id_user' => $a->id_user,
                 'tahun_masuk' => $a->tahun_masuk
             ], $cekvalidasi);
         } else {
@@ -175,7 +176,8 @@ class CrudController extends Controller
 
             mahasiswa::create([
                 'nim' => $a->nim,
-                'id_user' => $a->id_user,
+                'name' => $a->name,
+                'email' => $a->email,
                 'jenis_kelamin' => $a->jenis_kelamin,
                 'id_prodi' => $a->id_prodi,
                 'tahun_masuk' => $a->tahun_masuk,
@@ -183,6 +185,55 @@ class CrudController extends Controller
             ], $cekvalidasi);
         }
         return redirect('/dashboard')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    public function edit_profile($nim)
+    {
+        $data1 = Prodi::all();
+        $data2 = Mahasiswa::find($nim);
+        return view("edit-profile", ['viewMhs' => $data1], ['viewMhs' => $data2]);
+    }
+    public function update_profile($nim, Request $a)
+    {
+        //Validasi
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'max' => 'Ukuran tidak boleh lebih dari 2mb',
+            'numeric' => 'Harus menggunakan angka',
+            'file.required' => 'File surat tidak boleh kosong!',
+            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+        ];
+        $cekValidasi = $a->validate([
+            'nim' => 'required',
+            'judul_proposal' => 'required',
+            'jenis_kelamin' => 'required',
+            'id_prodi' => 'required|numeric',
+            'tahun_masuk' => 'required',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ], $messages);
+
+        $file = $a->file('file');
+        if (file_exists($file)) {
+            $nama_file = time() . "-" . $file->getClientOriginalName();
+            $folder = 'file_proposal';
+            $file->move($folder, $nama_file);
+            $path = $folder . "/" . $nama_file;
+            //delete
+            $data = Mahasiswa::where('nim', $nim)->first();
+            File::delete($data->file);
+        } else {
+            $path = $a->pathFile;
+        }
+        Pengajuan::where("nim", "$nim")->update([
+            'nim' => $a->nim,
+            'name' => $a->name,
+            'email' => $a->email,
+            'jenis_kelamin' => $a->jenis_kelamin,
+            'id_prodi' => $a->id_prodi,
+            'tahun_masuk' => $a->tahun_masuk,
+            'foto' => $path
+        ], $cekValidasi);
+        return redirect('/dashboard')->with('toast_success', 'Data berhasil di update!');
     }
 
     public function simpan_dosen(Request $a)
@@ -249,34 +300,6 @@ class CrudController extends Controller
         $data = mahasiswa::find($nim);
         return view('editmhs', ['edit' => $data]);
     }
-
-    //Update-Dashboard_Mahasiswa
-    public function update($nim, Request $a)
-    {
-        $messages = [
-            'required' => 'Data harus diisi!',
-            'email' => 'Alamat email tidak valid',
-            'max' => 'Angka terlalu banyak',
-            'numeric' => 'Harus menggunakan angka',
-            'image' => 'File harus berbentuk jpg,png,jpeg,gif,svg'
-        ];
-
-        mahasiswa::where("nim", "$nim")->update([
-            $cekvalidasi = $a->validate([
-                'nim' => 'required|numeric',
-                'nama' => 'required',
-                'alamat' => 'required',
-                'email' => 'required|email',
-                'nohp' => 'required|numeric',
-                'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            ], $messages)
-        ]);
-        mahasiswa::create($cekvalidasi);
-        return redirect('index')->with('Berhasil', 'Data berhasil di simpan!');
-    }
-
-    //Edit-Pengajuan
-
 
     //END CRUD
 

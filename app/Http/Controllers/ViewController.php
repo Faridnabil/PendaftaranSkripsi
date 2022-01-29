@@ -34,9 +34,8 @@ class ViewController extends Controller
     //Pengajuan
     public function pengajuan()
     {
-        $data1 = Pengajuan::all();
-        $data2 = Status::all();
-        return view('pengajuan', ['viewMhs' => $data1], ['viewMhs' => $data2]);
+        $data = Pengajuan::all();
+        return view('pengajuan', ['viewMhs' => $data]);
     }
 
     public function data_pengajuan()
