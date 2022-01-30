@@ -137,6 +137,25 @@ class CrudController extends Controller
         }
     }
 
+    //Update Status
+    public function update_status_terima($id, Request $a)
+    {
+        $data = Pengajuan::where('id', $id)->first();
+
+        Pengajuan::where('id', $id)->update([
+            'status' => $a->status==1
+        ]);
+    }
+
+    public function update_status_tolak($id, Request $a)
+    {
+        $data = Pengajuan::where('id', $id)->first();
+
+        Pengajuan::where('id', $id)->update([
+            'status' => $a->status==2
+        ]);
+    }
+
     //Input-Dashboard_Mahasiswa
     public function simpan_mahasiswa(Request $a)
     {

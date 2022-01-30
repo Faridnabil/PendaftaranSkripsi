@@ -48,10 +48,17 @@
                                             {{ $item->judul_proposal }}
                                         </td>
                                         <td>
-                                            {{ $item->file }}
+                                            @empty($item->file)
+                                                <label class="badge badge-danger">Tidak ada</label>
+                                            @else
+                                                <label class="badge badge-success">Ada</label>
+                                            @endempty
                                         </td>
                                         <td>
-                                            {{$item->status}}
+                                            <label
+                                                class="badge {{ $item->status == 1 ? 'badge-success' : 'badge-warning' }}">
+                                                {{ $item->status == 1 ? 'Completed' : 'In Progress' }}
+                                            </label>
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download
@@ -60,20 +67,14 @@
                                                 <i class="mdi mdi-format-vertical-align-bottom"></i>
                                             </a>
 
-                                            @if (auth()->user()->level == 'admin')
-                                                <a type="button" href="/edit-sm/{{ $item->id }}"
-                                                    class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
-                                                    data-placement="top" title="Edit">
-                                                    <i class="mdi mdi-border-color"></i>
-                                                </a>
-                                                <a type="button" href="/hapus-sm/{{ $item->id }}"
-                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
-                                                    class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
-                                                    data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-delete"></i>
-                                                </a>
-                                            @endif
+                                            <a type="button" href="{{url('/updateStatusTolak',$item->status)}}" class="btn-sm btn-inverse-warning btn-rounded m-lg-1"
+                                                data-toggle="tooltip" data-placement="top" title="Tolak" id="tolak">
+                                                <i class="mdi mdi-close"></i>
+                                            </a>
 
+                                            <a type="button" href="{{url('/updateStatusTerima',$item->status)}}" class="btn-sm btn-inverse-success btn-rounded m-lg-1"
+                                                data-toggle="tooltip" data-placement="top" title="Terima" id="terima">
+                                                <i class="mdi mdi-check"></i>
                                         </td>
                                     </tr>
                             </tbody>

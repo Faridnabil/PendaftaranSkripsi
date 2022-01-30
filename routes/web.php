@@ -44,5 +44,6 @@ Route::group(['middleware' => ['auth', 'ceklevel:mahasiswa,admin']], function(){
 
 Route::group(['middleware' => ['auth', 'ceklevel:dosen,admin']], function(){
     Route::get('dataPengajuan', [ViewController::class, 'data_pengajuan']);
-    Route::get('updateStatus', [CrudController::class, 'update_status']);
+    Route::get('updateStatusTerima/{id}', [CrudController::class, 'update_status_terima']);
+    Route::get('updateStatusTolak/{id}', [CrudController::class, 'update_status_tolak']);
 });

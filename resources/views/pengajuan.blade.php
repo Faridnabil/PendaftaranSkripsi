@@ -57,7 +57,7 @@
                                         </td>
                                         <td>
                                             <label class="badge {{$item->status == 1 ? 'badge-success' : 'badge-warning'}}">
-                                                {{$item->status == 1 ? 'Diterima' : 'Pending'}} </label>
+                                                {{$item->status == 1 ? 'Completed' : 'In Progress'}} </label>
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download
