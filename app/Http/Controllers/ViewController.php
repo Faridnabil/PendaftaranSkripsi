@@ -17,9 +17,11 @@ class ViewController extends Controller
     //START TAMPILAN
     //Dashboard
     public function dashboard(){
-        $data1 = Mahasiswa::with('prodi','user')->paginate(5);
-        $data2 = Dosen::with('prodi')->paginate(5);
-        return view('dashboard', ['viewDsn' => $data2], ['viewMhs' => $data1]);
+        $data1 = Mahasiswa::count();
+        $data2 = Dosen::count();
+        $data3 = Pengajuan::count();
+        $data = [$data1, $data2, $data3];
+        return view('dashboard', ['data' => $data]);
     }
 
     //Login
@@ -50,17 +52,28 @@ class ViewController extends Controller
     }
 
     //Dashboard
+    public function view_mahasiswa(){
+        $data = Mahasiswa::all();
+        return view('view-mahasiswa', ['viewMhs' => $data]);
+    }
+
     public function Mahasiswa()
     {
         $data1 = Prodi::all();
-        $data2 = User::all();
+        $data2 = Mahasiswa::all();
         return view('mahasiswa', ['viewMhs' => $data1], ['viewMhs' => $data2]);
+    }
+
+    public function view_dosen(){
+        $data = Dosen::all();
+        return view('view-dosen', ['viewDsn' => $data]);
     }
 
     public function Dosen()
     {
-        $data = Prodi::all();
-        return view('dosen', ['viewDsn' => $data]);
+        $data1 = Prodi::all();
+        $data2 = Dosen::all();
+        return view('dosen', ['viewDsn' => $data1], ['viewDsn' => $data2]);
     }
 //END TAMPILAN
 

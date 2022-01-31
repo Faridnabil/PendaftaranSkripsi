@@ -22,9 +22,4 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(User::class,'id_user');
     }
-
-    public function fotoUser()
-    {
-        return $this->hasMany(User::class);
-    }
 }

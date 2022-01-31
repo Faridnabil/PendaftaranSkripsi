@@ -47,6 +47,7 @@
                     </a>
                     <div class="collapse" id="ui-basic1">
                         <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="viewMahasiswa">Data Mahasiswa </a></li>
                             <li class="nav-item"> <a class="nav-link" href="pengajuan">Pengajuan
                                     Proposal</a></li>
                             <li class="nav-item"> <a class="nav-link" href="nota-sidang">Nota Sidang</a>
@@ -66,6 +67,7 @@
                     </a>
                     <div class="collapse" id="ui-basic2">
                         <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="viewDosen">Data Dosen </a></li>
                             <li class="nav-item"> <a class="nav-link" href="dataPengajuan">Data Pendaftar
                                     Proposal</a></li>
                             <li class="nav-item"> <a class="nav-link" href="notaSidang">Nota Sidang</a></li>

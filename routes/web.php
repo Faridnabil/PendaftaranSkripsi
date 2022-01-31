@@ -9,15 +9,17 @@ Route::get('login', [ViewController::class, 'index'])->name('login')->middleware
 Route::post('login_redirect', [ViewController::class, 'login']);
 Route::get('register', [ViewController::class, 'register']);
 Route::post('register_redirect', [CrudController::class, 'register_redirect']);
+Route::get('logout', [ViewController::class, 'logout']);
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin,mahasiswa,dosen']], function(){
     Route::get('dashboard', [ViewController::class, 'dashboard']);
-    Route::get('logout', [ViewController::class, 'logout']);
 
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
+    Route::get('viewMahasiswa', [ViewController::class, 'view_mahasiswa']);
     Route::get('tambahMahasiswa', [ViewController::class, 'Mahasiswa']);
+    Route::get('viewDosen', [ViewController::class, 'view_dosen']);
     Route::get('tambahDosen', [ViewController::class, 'Dosen']);
     //CrudController-Dosen
     Route::get('edit/{nim}', [CrudController::class, 'edit']);

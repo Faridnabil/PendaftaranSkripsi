@@ -143,7 +143,7 @@ class CrudController extends Controller
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => $a->status==1
+            'status' => 1
         ]);
     }
 
@@ -152,7 +152,7 @@ class CrudController extends Controller
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => $a->status==2
+            'status' => 2
         ]);
     }
 
