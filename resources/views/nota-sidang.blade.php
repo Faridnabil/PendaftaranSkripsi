@@ -1,5 +1,4 @@
 @extends('template')
-@include('alert')
 
 @section('tittle')
     Pendaftaran Skripsi atau Tugas Akhir
@@ -16,16 +15,22 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        ID Pengajuan
+                                        ID Nota
+                                    </th>
+                                    <th>
+                                        Judul Pengajuan
                                     </th>
                                     <th>
                                         NIM
                                     </th>
                                     <th>
-                                        Judul Proposal
+                                        Prodi
                                     </th>
                                     <th>
-                                        File Proposal
+                                        Pembimbing
+                                    </th>
+                                    <th>
+                                        Batas Bimbingan
                                     </th>
                                     <th>
                                         Status
@@ -36,29 +41,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($viewMhs as $item)
+                                @foreach ($nota as $item)
                                     <tr>
                                         <td>
                                             {{ $item->id }}
                                         </td>
                                         <td>
-                                            {{ $item->nim }}
+                                            {{ $item->pengajuan['judul_proposal'] }}
                                         </td>
                                         <td>
-                                            {{ $item->judul_proposal }}
+                                            {{ $item->pengajuan['nim'] }}
                                         </td>
                                         <td>
-                                            @empty($item->file)
-                                                <label class="badge badge-danger">Tidak ada</label>
-                                            @else
-                                                <label class="badge badge-success">Ada</label>
-                                            @endempty
+                                            {{ $item->prodi['nama_prodi'] }}
                                         </td>
                                         <td>
-                                            <label
-                                                class="badge {{ $item->status == 1 ? 'badge-success' : 'badge-warning' }}">
-                                                {{ $item->status == 1 ? 'Completed' : 'In Progress' }}
-                                            </label>
+                                            {{ $item->dosen['name'] }}
+                                        </td>
+                                        <td>
+                                            {{ $item->batas_bimbingan }}
+                                        </td>
+                                        <td>
+                                            <label class="badge {{$item->status == 1 ? 'badge-success' : 'badge-warning'}}">
+                                                {{$item->status == 1 ? 'Completed' : 'In Progress'}} </label>
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download
@@ -66,15 +71,6 @@
                                                 data-placement="top" title="Download File">
                                                 <i class="mdi mdi-format-vertical-align-bottom"></i>
                                             </a>
-
-                                            <a type="button" href="{{url('/updateStatusTolak',$item->status)}}" class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
-                                                data-toggle="tooltip" data-placement="top" title="Tolak" id="tolak">
-                                                <i class="mdi mdi-close"></i>
-                                            </a>
-
-                                            <a type="button" href="{{url('/updateStatusTerima',$item->status)}}" class="btn-sm btn-inverse-success btn-rounded m-lg-1"
-                                                data-toggle="tooltip" data-placement="top" title="Terima" id="terima">
-                                                <i class="mdi mdi-check"></i>
                                         </td>
                                     </tr>
                             </tbody>

@@ -6,73 +6,47 @@
 @extends('template')
 
 @section('tittle')
-    Input Dosen
+    Pendaftaran Skripsi atau Tugas Akhir
 @endsection
 
 @section('konten')
-    <form action="simpanDosen" method="POST" enctype="multipart/form-data">
+    <h4>Nota Sidang</h4>
+    <form action="simpanNota" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
-                <label for="nid">NID</label>
-                <input type="text" class="form-control" name="nid" id="nid" value="{{ old('nid') }}"> <br />
-                @error('nid')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
-                <input type="text" class="form-control" name="nama" id="nama" value="{{ old('nama') }}"> <br />
-                @error('nama')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}"> <br />
-                @error('email')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select class="custom-select" id="jenis_kelamin" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
-                    <option>Laki-Laki</option>
-                    <option>Perempuan</option>
-                    <option>Lainnya</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="id_prodi">Jurusan</label>
-                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
+                <label for="id_pengajuan">ID Pengajuan</label>
+                <select class="custom-select" id="id_pengajuan" name="id_pengajuan" value="{{ old('id_pengajuan') }}">
                     <option selected disabled>Select one</option>
-                    @foreach ($viewDsn as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
+                    @foreach ($nota as $item)
+                        <option value="{{ $item->id }}">{{ $item->judul_proposal }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="foto">Foto</label>
-                <input type="file" class="form-control" name="foto" id="foto" value="{{ old('foto') }}"> <br />
-                @error('foto')
+                <label for="id_prodi">ID Prodi</label>
+                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
+                    <option selected disabled>Select one</option>
+                    @foreach ($nota as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nid_dosen">Dosen Pembimbing</label>
+                <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
+                    <option selected disabled>Select one</option>
+                    @foreach ($nota as $item)
+                        <option value="{{ $item->nim }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="batas_bimbingan">Batas Bimbingan</label>
+                <input type="date" class="form-control" name="batas_bimbingan" id="batas_bimbingan"
+                    value="{{ old('batas_bimbingan') }}"> <br />
+                @error('batas_bimbingan')
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
+use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
 use App\Models\Status;
@@ -138,13 +139,14 @@ class CrudController extends Controller
     }
 
     //Update Status
-    public function update_status_terima($id, Request $a)
+    public function update_status_terima($id)
     {
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => 1
+            'status' => 'Terima'
         ]);
+        return redirect('/dataPengajuan');
     }
 
     public function update_status_tolak($id, Request $a)
@@ -152,8 +154,38 @@ class CrudController extends Controller
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => 2
+            'status' => 'Tolak'
         ]);
+        return redirect('/dataPengajuan');
+    }
+
+    //Daftar NotaSidang
+    public function simpan_nota(Request $a)
+    {
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'max' => 'Ukuran tidak boleh lebih dari 2mb',
+            'numeric' => 'Harus menggunakan angka',
+            'file.required' => 'File surat tidak boleh kosong!',
+            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+        ];
+
+        $cekvalidasi = $a->validate([
+            'id' => 'required',
+            'id_pengajuan' => 'required',
+            'id_prodi' => 'required',
+            'id_dosen' => 'required',
+            'batas_bimbingan' => 'required',
+        ], $messages);
+
+        notaSidang::create([
+            'id_pengajuan' => $a->id_pengajuan,
+            'id_prodi' => $a->id_prodi,
+            'id_dosen' => $a->id_dosen,
+            'batas_bimbingan' => $a->batas_bimbingan,
+        ], $cekvalidasi);
+
+        return redirect('/daftar-nota')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
     //Input-Dashboard_Mahasiswa

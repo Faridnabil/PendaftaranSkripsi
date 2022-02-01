@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
 use App\Models\Status;
@@ -20,7 +21,9 @@ class ViewController extends Controller
         $data1 = Mahasiswa::count();
         $data2 = Dosen::count();
         $data3 = Pengajuan::count();
-        $data = [$data1, $data2, $data3];
+        $data4 = notaSidang::count();
+
+        $data = [$data1, $data2, $data3, $data4, ];
         return view('dashboard', ['data' => $data]);
     }
 
@@ -49,6 +52,21 @@ class ViewController extends Controller
     public function daftar_pengajuan(){
         $data = Pengajuan::all();
         return view('daftar-pengajuan', ['viewMhs' => $data]);
+    }
+
+    //Nota Sidang
+    public function nota_sidang()
+    {
+        $data1 = notaSidang::all();
+        return view('nota-sidang', ['nota' => $data1]);
+    }
+
+    public function tambah_nota(){
+        $data1 = notaSidang::all();
+        $data2 = Prodi::all();
+        $data3 = Dosen::all();
+        $data4 = Pengajuan::all();
+        return view('daftar-nota', ['nota' => $data1], ['prodi' => $data2], ['dosen' => $data3], ['pengajuan' => $data4]);
     }
 
     //Dashboard

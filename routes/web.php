@@ -13,7 +13,7 @@ Route::get('logout', [ViewController::class, 'logout']);
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin,mahasiswa,dosen']], function(){
     Route::get('dashboard', [ViewController::class, 'dashboard']);
-
+    Route::get('viewNota', [ViewController::class, 'nota_sidang']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:mahasiswa,admin']], function(){
 
 Route::group(['middleware' => ['auth', 'ceklevel:dosen,admin']], function(){
     Route::get('dataPengajuan', [ViewController::class, 'data_pengajuan']);
+    Route::get('daftarNota', [ViewController::class, 'tambah_nota']);
+    Route::get('simpanNota', [CrudController::class, 'simpan_nota']);
     Route::get('updateStatusTerima/{id}', [CrudController::class, 'update_status_terima']);
     Route::get('updateStatusTolak/{id}', [CrudController::class, 'update_status_tolak']);
 });

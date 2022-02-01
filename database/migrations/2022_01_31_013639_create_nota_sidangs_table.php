@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateNotaSidangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('nota_sidang', function (Blueprint $table) {
             $table->id();
+            $table->string('batas_bimbingan', 50);
             $table->string('status',50);
+            $table->unsignedBigInteger('nim_mahasiswa');
+            $table->foreign('nim_mahasiswa')->references('nim')->on('mahasiswa');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('nota_sidang');
     }
 }

@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="{{ asset('Spica/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('Spica/images/favicon.png') }}" />
-</head>
+
+    </head>
 
 <body>
     <div class="container-scroller d-flex">
@@ -50,7 +51,7 @@
                             <li class="nav-item"> <a class="nav-link" href="viewMahasiswa">Data Mahasiswa </a></li>
                             <li class="nav-item"> <a class="nav-link" href="pengajuan">Pengajuan
                                     Proposal</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="nota-sidang">Nota Sidang</a>
+                            <li class="nav-item"> <a class="nav-link" href="viewNota">Nota Sidang</a>
                             </li>
                             <li class="nav-item"> <a class="nav-link" href="daftar-sidang">Daftar Sidang</a>
                             </li>
@@ -70,7 +71,7 @@
                             <li class="nav-item"> <a class="nav-link" href="viewDosen">Data Dosen </a></li>
                             <li class="nav-item"> <a class="nav-link" href="dataPengajuan">Data Pendaftar
                                     Proposal</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="notaSidang">Nota Sidang</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="daftarNota">Nota Sidang</a></li>
                             <li class="nav-item"> <a class="nav-link" href="daftarSidang">Data Pendaftar
                                     Sidang</a></li>
                             <li class="nav-item"> <a class="nav-link" href="nilai">Nilai</a></li>
@@ -193,6 +194,8 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
+
+
     <!-- container-scroller -->
     <!-- base:js -->
     <script src="{{ asset('Spica/vendors/js/vendor.bundle.base.js') }}"></script>
@@ -216,9 +219,6 @@
     <!-- endinject -->
     <!-- inject:js -->
     <script src="{{ asset('Spica/js/file-upload.js') }}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

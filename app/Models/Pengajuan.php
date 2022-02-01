@@ -14,4 +14,8 @@ class Pengajuan extends Model
     protected $fillable = ["nim", "judul_proposal", "file", "status"];
     public $timestamps = false;
 
+    public function notaSidang()
+    {
+        return $this->hasMany(notaSidang::class);
+    }
 }

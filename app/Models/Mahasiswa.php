@@ -22,4 +22,9 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(User::class,'id_user');
     }
+
+    public function notaSidang()
+    {
+        return $this->hasMany(notaSidang::class);
+    }
 }
