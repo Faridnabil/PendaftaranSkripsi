@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 @extends('template')
 
 @section('tittle')
@@ -6,7 +9,7 @@
 
 @section('konten')
     <h4>Edit Profile</h4>
-    <form action="/updateProfileMahasiswa/{{ $viewMhs->id }}" method="POST" enctype="multipart/form-data">
+    <form action="/updateMahasiswa/{{ $viewMhs->nim }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
@@ -60,16 +63,16 @@
             </div>
             <div class="form-group">
                 <label for="id_prodi">Jurusan</label>
-                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{$viewMhs->jenis_kelamin}}">
-                <option selected disabled>Select one</option>
-                    @foreach ($viewMhs as $item )
-                        <option value="{{$item->id}}">{{$item->nama_prodi}}</option>
+                <select class="custom-select" id="id_prodi" name="id_prodi">
+                    <option value="{{ $viewMhs->id_prodi }}">{{ $viewMhs->prodi['nama_prodi'] }}</option>
+                    @foreach ($prodi as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="tahun_masuk">Tahun Masuk</label>
-                <input type="text" class="form-control" name="tahun_masuk" id="tahun_masuk" value="{{$viewMhs->jenis_kelamin)}}">
+                <input type="text" class="form-control" name="tahun_masuk" id="tahun_masuk" value="{{$viewMhs->tahun_masuk}}">
                 @error('tahun_masuk')
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -113,3 +116,13 @@
         </div>
     </footer>
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>

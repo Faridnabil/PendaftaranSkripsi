@@ -292,7 +292,7 @@ class CrudController extends Controller
     {
         $data1 = Prodi::all();
         $data2 = Mahasiswa::find($nim);
-        return view("edit-profile-mahasiswa", ['viewMhs' => $data1], ['viewMhs' => $data2]);
+        return view("edit-profile-mahasiswa", ['prodi' => $data1], ['viewMhs' => $data2]);
     }
     public function update_profile_mahasiswa($nim, Request $a)
     {
@@ -301,22 +301,22 @@ class CrudController extends Controller
             'required' => 'Data harus diisi!',
             'max' => 'Ukuran tidak boleh lebih dari 2mb',
             'numeric' => 'Harus menggunakan angka',
-            'file.required' => 'File surat tidak boleh kosong!',
-            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+            'image' => 'File harus berbentuk jpg,png,jpeg,gif,svg'
         ];
         $cekValidasi = $a->validate([
             'nim' => 'required',
-            'judul_proposal' => 'required',
+            'name' => 'required',
+            'email' => 'required',
             'jenis_kelamin' => 'required',
-            'id_prodi' => 'required|numeric',
+            'id_prodi' => 'required',
             'tahun_masuk' => 'required',
             'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ], $messages);
 
-        $file = $a->file('file');
+        $file = $a->file('foto');
         if (file_exists($file)) {
             $nama_file = time() . "-" . $file->getClientOriginalName();
-            $folder = 'file_proposal';
+            $folder = 'foto';
             $file->move($folder, $nama_file);
             $path = $folder . "/" . $nama_file;
             //delete
@@ -344,8 +344,7 @@ class CrudController extends Controller
             'email' => 'Alamat email tidak valid',
             'max' => 'Angka terlalu banyak',
             'numeric' => 'Harus menggunakan angka',
-            'file.required' => 'File surat tidak boleh kosong!',
-            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+            'image' => 'File harus berbentuk jpg,png,jpeg,gif,svg'
         ];
 
         $cekvalidasi = $a->validate([
@@ -388,54 +387,51 @@ class CrudController extends Controller
     }
     //End-Input
 
-    //Hapus
     public function edit_profile_dosen($nid)
     {
         $data1 = Prodi::all();
         $data2 = Dosen::find($nid);
-        return view("edit-profile-dosen", ['viewDsn' => $data1], ['viewDsn' => $data2]);
+        return view("edit-profile-dosen", ['prodi' => $data1], ['viewDsn' => $data2]);
     }
-    public function update_profile_dosen($nim, Request $a)
+    public function update_profile_dosen($nid, Request $a)
     {
         //Validasi
         $messages = [
             'required' => 'Data harus diisi!',
             'max' => 'Ukuran tidak boleh lebih dari 2mb',
             'numeric' => 'Harus menggunakan angka',
-            'file.required' => 'File surat tidak boleh kosong!',
-            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+            'image' => 'File harus berbentuk jpg,png,jpeg,gif,svg'
         ];
         $cekValidasi = $a->validate([
-            'nim' => 'required',
-            'judul_proposal' => 'required',
+            'nid' => 'required|numeric',
+            'name' => 'required',
+            'email' => 'required|email',
             'jenis_kelamin' => 'required',
             'id_prodi' => 'required|numeric',
-            'tahun_masuk' => 'required',
             'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ], $messages);
 
-        $file = $a->file('file');
+        $file = $a->file('foto');
         if (file_exists($file)) {
             $nama_file = time() . "-" . $file->getClientOriginalName();
-            $folder = 'file_proposal';
+            $folder = 'foto';
             $file->move($folder, $nama_file);
             $path = $folder . "/" . $nama_file;
             //delete
-            $data = Mahasiswa::where('nim', $nim)->first();
+            $data = Dosen::where('nid', $nid)->first();
             File::delete($data->file);
         } else {
             $path = $a->pathFile;
         }
-        Pengajuan::where("nim", "$nim")->update([
-            'nim' => $a->nim,
+        Dosen::where("nid", "$nid")->update([
+            'nid' => $a->nid,
             'name' => $a->name,
             'email' => $a->email,
             'jenis_kelamin' => $a->jenis_kelamin,
             'id_prodi' => $a->id_prodi,
-            'tahun_masuk' => $a->tahun_masuk,
             'foto' => $path
         ], $cekValidasi);
-        return redirect('/viewMahasiswa')->with('toast_success', 'Data berhasil di update!');
+        return redirect('/viewDosen')->with('toast_success', 'Data berhasil di update!');
     }
 
     //END CRUD
