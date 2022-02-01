@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth', 'ceklevel:dosen,admin']], function(){
     Route::get('dataPengajuan', [ViewController::class, 'data_pengajuan']);
     Route::get('daftarNota', [ViewController::class, 'tambah_nota']);
     Route::get('viewDaftarSidang', [ViewController::class, 'view_sidang']);
+    Route::get('aturJadwal', [ViewController::class, 'atur_jadwal']);
+
+    Route::post('simpanJadwal', [CrudController::class, 'simpan_jadwal']);
     Route::post('simpanNota', [CrudController::class, 'simpan_nota']);
     Route::get('updateStatusTerima/{id}', [CrudController::class, 'update_status_terima']);
     Route::get('updateStatusTolak/{id}', [CrudController::class, 'update_status_tolak']);

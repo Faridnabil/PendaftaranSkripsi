@@ -17,4 +17,9 @@ class daftar_sidang extends Model
     {
         return $this->belongsTo(Prodi::class,'id_prodi');
     }
+
+    public function Sidang()
+    {
+        return $this->hasMany(Sidang::class);
+    }
 }

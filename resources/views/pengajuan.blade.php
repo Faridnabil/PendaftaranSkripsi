@@ -73,7 +73,6 @@
                                                     <i class="mdi mdi-border-color"></i>
                                                 </a>
                                                 <a type="button" href="/hapusPengajuan/{{ $item->id }}"
-                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
                                                     class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
                                                     data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class="mdi mdi-delete"></i>

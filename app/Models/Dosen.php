@@ -22,4 +22,9 @@ class Dosen extends Model
     {
         return $this->hasMany(notaSidang::class);
     }
+
+    public function Sidang()
+    {
+        return $this->hasMany(Sidang::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Dosen;
 use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
+use App\Models\Sidang;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
@@ -150,7 +151,7 @@ class CrudController extends Controller
         return redirect('/dataPengajuan');
     }
 
-    public function update_status_tolak($id, Request $a)
+    public function update_status_tolak($id)
     {
         $data = Pengajuan::where('id', $id)->first();
 
@@ -208,6 +209,33 @@ class CrudController extends Controller
         ], $cekvalidasi);
 
         return redirect('/daftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    public function simpan_jadwal(Request $a)
+    {
+        $messages = [
+            'required' => 'Data harus diisi!',
+        ];
+
+        $cekvalidasi = $a->validate([
+            'id_daftarSidang' => 'required',
+            'nid_dosen' => 'required',
+            'id_prodi' => 'required',
+            'tanggal' => 'required',
+            'jam' => 'required',
+            'ruangan' => 'required',
+        ], $messages);
+
+        Sidang::create([
+            'id_daftarSidang' => $a->id_daftarSidang,
+            'nid_dosen' => $a->nid_dosen,
+            'id_prodi' => $a->id_prodi,
+            'tanggal' => $a->tanggal,
+            'jam' => $a->jam,
+            'ruangan' => $a->ruangan,
+        ], $cekvalidasi);
+
+        return redirect('/viewDaftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
     //Input-Dashboard_Mahasiswa

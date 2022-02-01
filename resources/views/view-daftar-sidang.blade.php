@@ -65,25 +65,11 @@
                                             {{ $item->created_at }}
                                         </td>
                                         <td>
-                                            <a type="button" href="{{ $item->file }}" download
+                                            <a type="button" href="/aturJadwal"
                                                 class="btn-sm btn-inverse-info btn-rounded m-lg-1" data-toggle="tooltip"
-                                                data-placement="top" title="Download File">
-                                                <i class="mdi mdi-format-vertical-align-bottom"></i>
+                                                data-placement="top" title="Atur Jadwal Sidang">
+                                                <i class="mdi mdi-bulletin-board"></i>
                                             </a>
-
-                                            @if (auth()->user()->user == 'admin')
-                                                <a type="button" href="/editdataSidang/{{ $item->id }}"
-                                                    class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
-                                                    data-placement="top" title="Edit">
-                                                    <i class="mdi mdi-border-color"></i>
-                                                </a>
-                                                <a type="button" href="/hapusdataSidang/{{ $item->id }}"
-                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
-                                                    class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
-                                                    data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-delete"></i>
-                                                </a>
-                                            @endif
                                         </td>
                                     </tr>
                             </tbody>

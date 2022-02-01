@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
+use App\Models\Sidang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,9 @@ class ViewController extends Controller
         $data2 = Dosen::count();
         $data3 = Pengajuan::count();
         $data4 = notaSidang::count();
+        $data5 = Sidang::count();
 
-        $data = [$data1, $data2, $data3, $data4, ];
+        $data = [$data1, $data2, $data3, $data4, $data5];
         return view('dashboard', ['data' => $data]);
     }
 
@@ -79,6 +81,14 @@ class ViewController extends Controller
         $data1 = Prodi::all();
         $data2 = daftar_sidang::all();
         return view('daftar-sidang', ['sidang' => $data1], ['sidang' => $data2]);
+    }
+
+    public function atur_jadwal(){
+        $data1 = Prodi::all();
+        $data2 = Dosen::all();
+        $data3 = daftar_sidang::all();
+        $data = [$data1, $data2, $data3];
+        return view('atur-jadwal-sidang', ['sidang' => $data]);
     }
 
     //Dashboard

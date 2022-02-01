@@ -31,4 +31,9 @@ class Prodi extends Model
     {
         return $this->hasMany(daftar_sidang::class);
     }
+
+    public function sidang()
+    {
+        return $this->hasMany(Sidang::class);
+    }
 }

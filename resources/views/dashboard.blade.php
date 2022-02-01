@@ -57,19 +57,19 @@
                 </div>
             </div>
         </div>
-        <!--
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card bg-gradient-primary card-img-holder text-white">
                 <div class="card-body">
-                    <h4 class="font-weight-normal mb-3">Mahasiswa Sidang <i class="mdi mdi-receipt mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">Pendafatar Mahasiswa Sidang <i class="mdi mdi-receipt mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5">$data[4]}}</h2>
-                    <a href="/dataPengajuan" class="text-decoration-none text-white">
+                    <h2 class="mb-5">{{ $data[4]}}</h2>
+                    <a href="/viewDaftarSidang" class="text-decoration-none text-white">
                         <h6 class="card-text">View Detail </h6>
                     </a>
                 </div>
             </div>
         </div>
+        <!--
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
