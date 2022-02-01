@@ -27,4 +27,9 @@ class notaSidang extends Model
     {
         return $this->belongsTo(Pengajuan::class,'id_pengajuan');
     }
+
+    public function Sidang()
+    {
+        return $this->hasMany(Sidang::class);
+    }
 }

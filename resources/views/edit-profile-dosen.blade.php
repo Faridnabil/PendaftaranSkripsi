@@ -6,13 +6,13 @@
 
 @section('konten')
     <h4>Edit Profile</h4>
-    <form action="/updateProfile/{{ $pengajuan->id }}" method="POST" enctype="multipart/form-data">
+    <form action="/updateProfileDosen/{{ $viewDsn->id }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
-                <label for="nim">NIM</label>
-                <input type="text" class="form-control" name="nim" id="nim" value="{{ $pengajuan->nim }}"> <br />
-                @error('nim')
+                <label for="nid">NID</label>
+                <input type="text" class="form-control" name="nid" id="nid" value="{{ $viewDsn->nid }}"> <br />
+                @error('nid')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label for="name">Nama Lengkap</label>
                 <input type="text" class="form-control" name="name" id="name"
-                    value="{{ $pengajuan->name }}"> <br />
+                    value="{{ $viewDsn->name }}"> <br />
                 @error('name')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" id="email"
-                    value="{{ $pengajuan->email }}"> <br />
+                    value="{{ $viewDsn->email }}"> <br />
                 @error('email')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -52,7 +52,7 @@
             </div>
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select class="custom-select" id="jenis_kelamin" name="jenis_kelamin" value="{{$pengajuan->jenis_kelamin}}">
+                <select class="custom-select" id="jenis_kelamin" name="jenis_kelamin" value="{{$viewDsn->jenis_kelamin}}">
                     <option>Laki-Laki</option>
                     <option>Perempuan</option>
                     <option>Lainnya</option>
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="id_prodi">Jurusan</label>
-                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{$pengajuan->jenis_kelamin}}">
+                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{$viewDsn->id_prodi}}">
                 <option selected disabled>Select one</option>
                     @foreach ($viewMhs as $item )
                         <option value="{{$item->id}}">{{$item->nama_prodi}}</option>
@@ -68,24 +68,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="tahun_masuk">Tahun Masuk</label>
-                <input type="text" class="form-control" name="tahun_masuk" id="tahun_masuk" value="{{$pengajuan->jenis_kelamin)}}">
-                @error('tahun_masuk')
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong>
-                    <span> {{$message}} </span>
-                    <br>
-                </div>
-                @enderror
-            </div>
-            <div class="form-group">
                 <label>Foto</label>
                 <input type="file" class="file-upload-default" name="foto">
-                <input type="hidden" name="pathFile" value="{{ $pengajuan->foto }}">
+                <input type="hidden" name="pathFile" value="{{ $viewDsn->foto }}">
                 <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" disabled
-                        placeholder="{{ $pengajuan->foto }}">
+                        placeholder="{{ $viewDsn->foto }}">
                     <span class="input-group-append">
                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                     </span>

@@ -1,5 +1,4 @@
 @extends('template')
-@include('alert')
 
 @section('tittle')
     Pendaftaran Skripsi atau Tugas Akhir

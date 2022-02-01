@@ -22,15 +22,13 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
     Route::get('viewDosen', [ViewController::class, 'view_dosen']);
     Route::get('tambahDosen', [ViewController::class, 'Dosen']);
     //CrudController-Dosen
-    Route::get('edit/{nim}', [CrudController::class, 'edit']);
     Route::post('simpanDosen', [CrudController::class, 'simpan_dosen']);
-    Route::post('update/{nim}', [CrudController::class, 'update']);
-    Route::get('/hapus/{nim}', [CrudController::class, 'hapus']);
+    Route::get('editDosen/{nid}', [CrudController::class, 'edit_profile_dosen']);
+    Route::post('updateDosen/{nid}', [CrudController::class, 'update_profile_dosen']);
     //CrudController-Mahasiswa
-    Route::get('edit/{nim}', [CrudController::class, 'edit']);
     Route::post('simpanMahasiswa', [CrudController::class, 'simpan_mahasiswa']);
-    Route::post('update/{nim}', [CrudController::class, 'update']);
-    Route::get('/hapus/{nim}', [CrudController::class, 'hapus']);
+    Route::get('editMahasiswa/{nim}', [CrudController::class, 'edit_profile_mahasiswa']);
+    Route::post('updateMahasiswa/{nim}', [CrudController::class, 'update_profile_mahasiswa']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:mahasiswa,admin']], function(){

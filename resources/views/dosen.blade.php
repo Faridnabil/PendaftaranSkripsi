@@ -26,9 +26,9 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
-                <input type="text" class="form-control" name="nama" id="nama" value="{{ old('nama') }}"> <br />
-                @error('nama')
+                <label for="name">Nama Lengkap</label>
+                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}"> <br />
+                @error('name')
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>

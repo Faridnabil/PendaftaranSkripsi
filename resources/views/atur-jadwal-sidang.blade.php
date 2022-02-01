@@ -17,7 +17,7 @@
                 <select class="custom-select" id="id_daftarSidang" name="id_daftarSidang" value="{{ old('id_daftarSidang') }}">
                     <div class="form-group">
                         <option selected disabled>Select one</option>
-                        @foreach ($sidang as $item)
+                        @foreach ($sidang[2] as $item)
                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                         @endforeach
                 </select>
@@ -27,7 +27,7 @@
                 <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
                     <div class="form-group">
                         <option selected disabled>Select one</option>
-                        @foreach ($sidang as $item)
+                        @foreach ($sidang[0] as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
                         @endforeach
                 </select>
@@ -37,7 +37,7 @@
                 <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
                     <div class="form-group">
                         <option selected disabled>Select one</option>
-                        @foreach ($sidang as $item)
+                        @foreach ($sidang[1] as $item)
                             <option value="{{ $item->nid }}">{{ $item->name }}</option>
                         @endforeach
                 </select>
@@ -47,7 +47,7 @@
                 <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
                     <div class="form-group">
                         <option selected disabled>Select one</option>
-                        @foreach ($sidang as $item)
+                        @foreach ($sidang[1] as $item)
                             <option value="{{ $item->nid }}">{{ $item->name }}</option>
                         @endforeach
                 </select>

@@ -18,7 +18,7 @@
                 <label for="id_pengajuan">ID Pengajuan</label>
                 <select class="custom-select" id="id_pengajuan" name="id_pengajuan" value="{{ old('id_pengajuan') }}">
                     <option selected disabled>Select one</option>
-                    @foreach ($nota[0] as $item)
+                    @foreach ($nota[2] as $item)
                         <option value="{{ $item->id }}">{{ $item->judul_proposal }}</option>
                     @endforeach
                 </select>
@@ -27,7 +27,7 @@
                 <label for="id_prodi">ID Prodi</label>
                 <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
                     <option selected disabled>Select one</option>
-                    @foreach ($nota[1] as $item)
+                    @foreach ($nota[0] as $item)
                         <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
                     @endforeach
                 </select>
@@ -37,7 +37,7 @@
                 <label for="nid_dosen">Dosen Pembimbing</label>
                 <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
                     <option selected disabled>Select one</option>
-                    @foreach ($nota[2] as $item)
+                    @foreach ($nota[1] as $item)
                         <option value="{{ $item->nim }}">{{ $item->name }}</option>
                     @endforeach
                 </select>

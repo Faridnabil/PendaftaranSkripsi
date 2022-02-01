@@ -9,8 +9,6 @@
 
 @section('konten')
     <h4>Daftar Sidang</h4>
-    <a type="Button" class="btn btn-inverse-primary" href="pengajuan">Data Daftar Sidang </a>
-    <a type="Button" class="btn btn-primary" href="daftarSidang"> Daftar Sidang </a>
     <form action="simpanSidang" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>

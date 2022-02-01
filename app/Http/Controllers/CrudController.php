@@ -88,7 +88,7 @@ class CrudController extends Controller
     public function edit_pengajuan($idPengajuan)
     {
         $data = Pengajuan::find($idPengajuan);
-        return view("edit-pengajuan", ['status' => $data]);
+        return view("edit-pengajuan", ['pengajuan' => $data]);
     }
 
     public function update_pengajuan($idPengajuan, Request $a)
@@ -288,13 +288,114 @@ class CrudController extends Controller
         return redirect('/dashboard')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
-    public function edit_profile($nim)
+    public function edit_profile_mahasiswa($nim)
     {
         $data1 = Prodi::all();
         $data2 = Mahasiswa::find($nim);
-        return view("edit-profile", ['viewMhs' => $data1], ['viewMhs' => $data2]);
+        return view("edit-profile-mahasiswa", ['viewMhs' => $data1], ['viewMhs' => $data2]);
     }
-    public function update_profile($nim, Request $a)
+    public function update_profile_mahasiswa($nim, Request $a)
+    {
+        //Validasi
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'max' => 'Ukuran tidak boleh lebih dari 2mb',
+            'numeric' => 'Harus menggunakan angka',
+            'file.required' => 'File surat tidak boleh kosong!',
+            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+        ];
+        $cekValidasi = $a->validate([
+            'nim' => 'required',
+            'judul_proposal' => 'required',
+            'jenis_kelamin' => 'required',
+            'id_prodi' => 'required|numeric',
+            'tahun_masuk' => 'required',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ], $messages);
+
+        $file = $a->file('file');
+        if (file_exists($file)) {
+            $nama_file = time() . "-" . $file->getClientOriginalName();
+            $folder = 'file_proposal';
+            $file->move($folder, $nama_file);
+            $path = $folder . "/" . $nama_file;
+            //delete
+            $data = Mahasiswa::where('nim', $nim)->first();
+            File::delete($data->file);
+        } else {
+            $path = $a->pathFile;
+        }
+        Mahasiswa::where("nim", "$nim")->update([
+            'nim' => $a->nim,
+            'name' => $a->name,
+            'email' => $a->email,
+            'jenis_kelamin' => $a->jenis_kelamin,
+            'id_prodi' => $a->id_prodi,
+            'tahun_masuk' => $a->tahun_masuk,
+            'foto' => $path
+        ], $cekValidasi);
+        return redirect('/viewMahasiswa')->with('toast_success', 'Data berhasil di update!');
+    }
+
+    public function simpan_dosen(Request $a)
+    {
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'email' => 'Alamat email tidak valid',
+            'max' => 'Angka terlalu banyak',
+            'numeric' => 'Harus menggunakan angka',
+            'file.required' => 'File surat tidak boleh kosong!',
+            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
+        ];
+
+        $cekvalidasi = $a->validate([
+            'nid' => 'required|numeric',
+            'name' => 'required',
+            'email' => 'required|email',
+            'jenis_kelamin' => 'required',
+            'id_prodi' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ], $messages);
+
+        $file = $a->file('foto');
+        if (empty($file)) {
+            Dosen::create([
+                'nid' => $a->nid,
+                'name' => $a->name,
+                'email' => $a->email,
+                'jenis_kelamin' => $a->jenis_kelamin,
+                'id_prodi' => $a->id_prodi,
+            ], $cekvalidasi);
+        } else {
+            $nama_file = time() . "_" . $file->getClientOriginalName();
+            $ekstensi = $file->getClientOriginalExtension();
+            $ukuran = $file->getSize();
+            $pathAsli = $file->getRealPath();
+            $nama_folder = 'foto';
+            $file->move($nama_folder, $nama_file);
+            $pathPublic = $nama_folder . "/" . $nama_file;
+
+            Dosen::create([
+                'nid' => $a->nid,
+                'name' => $a->name,
+                'email' => $a->email,
+                'jenis_kelamin' => $a->jenis_kelamin,
+                'id_prodi' => $a->id_prodi,
+                'foto' => $pathPublic
+            ], $cekvalidasi);
+        }
+        return redirect('/viewDosen')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+    //End-Input
+
+    //Hapus
+    public function edit_profile_dosen($nid)
+    {
+        $data1 = Prodi::all();
+        $data2 = Dosen::find($nid);
+        return view("edit-profile-dosen", ['viewDsn' => $data1], ['viewDsn' => $data2]);
+    }
+    public function update_profile_dosen($nim, Request $a)
     {
         //Validasi
         $messages = [
@@ -334,72 +435,7 @@ class CrudController extends Controller
             'tahun_masuk' => $a->tahun_masuk,
             'foto' => $path
         ], $cekValidasi);
-        return redirect('/dashboard')->with('toast_success', 'Data berhasil di update!');
-    }
-
-    public function simpan_dosen(Request $a)
-    {
-        $messages = [
-            'required' => 'Data harus diisi!',
-            'email' => 'Alamat email tidak valid',
-            'max' => 'Angka terlalu banyak',
-            'numeric' => 'Harus menggunakan angka',
-            'image' => 'File harus berbentuk jpg,png,jpeg,gif,svg'
-        ];
-
-        $cekvalidasi = $a->validate([
-            'nid' => 'required|numeric',
-            'nama' => 'required',
-            'email' => 'required|email',
-            'jenis_kelamin' => 'required',
-            'id_prodi' => 'required|numeric',
-            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        ], $messages);
-
-        $file = $a->file('foto');
-        if (empty($file)) {
-            Dosen::create([
-                'nid' => $a->nid,
-                'nama' => $a->nama,
-                'email' => $a->email,
-                'jenis_kelamin' => $a->jenis_kelamin,
-                'id_prodi' => $a->id_prodi,
-            ], $cekvalidasi);
-        } else {
-            $nama_file = time() . "_" . $file->getClientOriginalName();
-            $ekstensi = $file->getClientOriginalExtension();
-            $ukuran = $file->getSize();
-            $pathAsli = $file->getRealPath();
-            $nama_folder = 'foto';
-            $file->move($nama_folder, $nama_file);
-            $pathPublic = $nama_folder . "/" . $nama_file;
-
-            Dosen::create([
-                'nid' => $a->nid,
-                'nama' => $a->nama,
-                'email' => $a->email,
-                'jenis_kelamin' => $a->jenis_kelamin,
-                'id_prodi' => $a->id_prodi,
-                'foto' => $pathPublic
-            ], $cekvalidasi);
-        }
-        return redirect('/dashboard')->with('Berhasil', 'Data berhasil di simpan!');
-    }
-    //End-Input
-
-    //Hapus
-    public function hapus($nim)
-    {
-        $data = mahasiswa::find($nim);
-        $data->delete($nim);
-        return redirect('index');
-    }
-    //Edit
-    public function edit($nim)
-    {
-
-        $data = mahasiswa::find($nim);
-        return view('editmhs', ['edit' => $data]);
+        return redirect('/viewMahasiswa')->with('toast_success', 'Data berhasil di update!');
     }
 
     //END CRUD
