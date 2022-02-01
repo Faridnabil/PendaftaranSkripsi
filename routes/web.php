@@ -36,18 +36,23 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
 Route::group(['middleware' => ['auth', 'ceklevel:mahasiswa,admin']], function(){
     Route::get('pengajuan', [ViewController::class, 'pengajuan']);
     Route::get('daftarPengajuan', [ViewController::class, 'daftar_pengajuan']);
+    Route::get('daftarSidang', [ViewController::class, 'daftar_sidang']);
+
     //CrudController-Pengajuan
     Route::get('editProfile/{nim}', [CrudController::class, 'edit_profile']);
     Route::get('editPengajuan/{id}', [CrudController::class, 'edit_pengajuan']);
     Route::post('simpanPengajuan', [CrudController::class, 'simpan_pengajuan']);
     Route::post('updatePengajuan/{id}', [CrudController::class, 'update_pengajuan']);
     Route::get('hapusPengajuan/{id}', [CrudController::class, 'hapus_pengajuan']);
+
+    Route::post('simpanSidang', [CrudController::class, 'simpan_sidang']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:dosen,admin']], function(){
     Route::get('dataPengajuan', [ViewController::class, 'data_pengajuan']);
     Route::get('daftarNota', [ViewController::class, 'tambah_nota']);
-    Route::get('simpanNota', [CrudController::class, 'simpan_nota']);
+    Route::get('viewDaftarSidang', [ViewController::class, 'view_sidang']);
+    Route::post('simpanNota', [CrudController::class, 'simpan_nota']);
     Route::get('updateStatusTerima/{id}', [CrudController::class, 'update_status_terima']);
     Route::get('updateStatusTolak/{id}', [CrudController::class, 'update_status_tolak']);
 });

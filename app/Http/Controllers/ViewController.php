@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\daftar_sidang;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
-use App\Models\Status;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,11 +61,24 @@ class ViewController extends Controller
     }
 
     public function tambah_nota(){
-        $data1 = notaSidang::all();
-        $data2 = Prodi::all();
-        $data3 = Dosen::all();
-        $data4 = Pengajuan::all();
-        return view('daftar-nota', ['nota' => $data1], ['prodi' => $data2], ['dosen' => $data3], ['pengajuan' => $data4]);
+        $data1 = Prodi::all();
+        $data2 = Dosen::all();
+        $data3 = Pengajuan::all();
+        $data = [$data1, $data2, $data3];
+        return view('daftar-nota', ['nota' => $data]);
+    }
+
+    //Nota Sidang
+    public function view_sidang()
+    {
+        $data1 = daftar_sidang::all();
+        return view('view-daftar-sidang', ['sidang' => $data1]);
+    }
+
+    public function daftar_sidang(){
+        $data1 = Prodi::all();
+        $data2 = daftar_sidang::all();
+        return view('daftar-sidang', ['sidang' => $data1], ['sidang' => $data2]);
     }
 
     //Dashboard

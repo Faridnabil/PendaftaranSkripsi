@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\daftar_sidang;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\notaSidang;
@@ -164,28 +165,49 @@ class CrudController extends Controller
     {
         $messages = [
             'required' => 'Data harus diisi!',
-            'max' => 'Ukuran tidak boleh lebih dari 2mb',
-            'numeric' => 'Harus menggunakan angka',
-            'file.required' => 'File surat tidak boleh kosong!',
-            'file.mimes' => 'File harus berupa file dengan tipe: pdf dengan ukuran max: 2048',
         ];
 
         $cekvalidasi = $a->validate([
-            'id' => 'required',
             'id_pengajuan' => 'required',
             'id_prodi' => 'required',
-            'id_dosen' => 'required',
+            'nid_dosen' => 'required',
             'batas_bimbingan' => 'required',
         ], $messages);
 
         notaSidang::create([
             'id_pengajuan' => $a->id_pengajuan,
             'id_prodi' => $a->id_prodi,
-            'id_dosen' => $a->id_dosen,
+            'nid_dosen' => $a->nid_dosen,
             'batas_bimbingan' => $a->batas_bimbingan,
         ], $cekvalidasi);
 
         return redirect('/daftar-nota')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    //Daftar Sidang
+    public function simpan_sidang(Request $a)
+    {
+        $messages = [
+            'required' => 'Data harus diisi!',
+        ];
+
+        $cekvalidasi = $a->validate([
+            'nim' => 'required',
+            'nama' => 'required',
+            'id_prodi' => 'required',
+            'judul_skripsi' => 'required',
+            'jenis_sidang' => 'required',
+        ], $messages);
+
+        daftar_sidang::create([
+            'nim' => $a->nim,
+            'nama' => $a->nama,
+            'id_prodi' => $a->id_prodi,
+            'judul_skripsi' => $a->judul_skripsi,
+            'jenis_sidang' => $a->jenis_sidang,
+        ], $cekvalidasi);
+
+        return redirect('/daftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
     //Input-Dashboard_Mahasiswa

@@ -9,31 +9,31 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Data Pengajuan</h4>
+                    <h4 class="card-title">Data Pendaftar Sidang</h4>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>
-                                        ID Nota
-                                    </th>
-                                    <th>
-                                        Judul Pengajuan
+                                        ID Daftar Sidang
                                     </th>
                                     <th>
                                         NIM
                                     </th>
                                     <th>
+                                        Nama
+                                    </th>
+                                    <th>
                                         Prodi
                                     </th>
                                     <th>
-                                        Pembimbing
+                                        Judul Skripsi
                                     </th>
                                     <th>
-                                        Batas Bimbingan
+                                        Jenis Sidang
                                     </th>
                                     <th>
-                                        Status
+                                        Tanggal
                                     </th>
                                     <th>
                                         Action
@@ -41,30 +41,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($nota as $item)
+                                @foreach ($sidang as $item)
                                     <tr>
                                         <td>
                                             {{ $item->id }}
                                         </td>
                                         <td>
-                                            {{ $item->pengajuan['judul_proposal'] }}
+                                            {{ $item->nim }}
                                         </td>
                                         <td>
-                                            {{ $item->pengajuan['nim'] }}
+                                            {{ $item->nama }}
                                         </td>
                                         <td>
                                             {{ $item->prodi['nama_prodi'] }}
                                         </td>
                                         <td>
-                                            {{ $item->dosen['name'] }}
+                                            {{ $item->judul_skripsi }}
                                         </td>
                                         <td>
-                                            {{ $item->batas_bimbingan }}
+                                            {{ $item->jenis_sidang }}
                                         </td>
                                         <td>
-                                            <label class="badge {{$item->status == 1 ? 'badge-danger' : 'badge-success'}}">
-                                                {{$item->status == 1 ? 'Tidak Aktif' : 'Aktif'}}
-                                            </label>
+                                            {{ $item->created_at }}
                                         </td>
                                         <td>
                                             <a type="button" href="{{ $item->file }}" download
@@ -72,6 +70,20 @@
                                                 data-placement="top" title="Download File">
                                                 <i class="mdi mdi-format-vertical-align-bottom"></i>
                                             </a>
+
+                                            @if (auth()->user()->user == 'admin')
+                                                <a type="button" href="/editdataSidang/{{ $item->id }}"
+                                                    class="btn-sm btn-inverse-dark btn-rounded m-lg-1" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit">
+                                                    <i class="mdi mdi-border-color"></i>
+                                                </a>
+                                                <a type="button" href="/hapusdataSidang/{{ $item->id }}"
+                                                    onclick="return confirm('Apakah anda yakin menghapus data?')"
+                                                    class="btn-sm btn-inverse-danger btn-rounded m-lg-1"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                             </tbody>

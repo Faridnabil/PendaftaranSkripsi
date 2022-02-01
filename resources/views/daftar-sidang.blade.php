@@ -1,20 +1,22 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
 @extends('template')
 
 @section('tittle')
-    Input Mahasiswa
+    Pendaftaran Skripsi atau Tugas Akhir
 @endsection
 
 @section('konten')
-    <form action="simpanMahasiswa" method="POST" enctype="multipart/form-data">
+    <h4>Daftar Sidang</h4>
+    <a type="Button" class="btn btn-inverse-primary" href="pengajuan">Data Daftar Sidang </a>
+    <a type="Button" class="btn btn-primary" href="daftarSidang"> Daftar Sidang </a>
+    <form action="simpanSidang" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
                 <label for="nim">NIM</label>
-                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
+                <input type="text" class="form-control" id="nim" name="nim" value="{{ old('nim') }}">
                 @error('nim')
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -26,9 +28,9 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="name">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-                @error('name')
+                <label for="nama">Nama</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}">
+                @error('nama')
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
@@ -39,40 +41,20 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
-                @error('email')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select class="custom-select" id="jenis_kelamin" name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
-                    <option>Laki-Laki</option>
-                    <option>Perempuan</option>
-                    <option>Lainnya</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="id_prodi">Jurusan</label>
+                <label for="id_prodi">Nama Prodi</label>
                 <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
-                    <option selected disabled>Select one</option>
-                    @foreach ($viewMhs as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
-                    @endforeach
+                    <div class="form-group">
+                        <option selected disabled>Select one</option>
+                        @foreach ($sidang as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
+                        @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="tahun_masuk">Tahun Masuk</label>
-                <input type="text" class="form-control" name="tahun_masuk" id="tahun_masuk"
-                    value="{{ old('tahun_masuk') }}"> <br />
-                @error('tahun_masuk')
+                <label for="judul_skripsi">Judul Skripsi</label>
+                <input type="text" class="form-control" id="judul_skripsi" name="judul_skripsi"
+                    value="{{ old('judul_skripsi') }}">
+                @error('judul_skripsi')
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
@@ -83,17 +65,13 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="foto">Foto</label>
-                <input type="file" class="form-control" name="foto" id="foto" value="{{ old('foto') }}"> <br />
-                @error('foto')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
-                @enderror
+                <label for="jenis_sidang">Jenis Pengajuan</label>
+                <select class="custom-select" id="jenis_sidang" name="jenis_sidang"
+                    value="{{ old('jenis_sidang') }}">
+                    <option>Skripsi</option>
+                    <option>PKL</option>
+                    <option>Tugas Akhir</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit">Submit</button>
         </table>
