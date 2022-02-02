@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\daftar_sidang;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
+use App\Models\Nilai;
 use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
@@ -236,6 +237,27 @@ class CrudController extends Controller
         ], $cekvalidasi);
 
         return redirect('/viewDaftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    public function simpan_nilai(Request $a)
+    {
+        $messages = [
+            'required' => 'Data harus diisi!',
+        ];
+
+        $cekvalidasi = $a->validate([
+            'id_sidang' => 'required',
+            'nilai_penguji' => 'required',
+            'status' => 'required',
+        ], $messages);
+
+        Nilai::create([
+            'id_sidang' => $a->id_sidang,
+            'nilai_penguji' => $a->nilai_penguji,
+            'status' => $a->status,
+        ], $cekvalidasi);
+
+        return redirect('/viewDataNilai')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
     //Input-Dashboard_Mahasiswa

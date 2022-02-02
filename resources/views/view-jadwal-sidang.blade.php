@@ -5,8 +5,8 @@
 @endsection
 
 @section('konten')
-    <a type="Button" class="btn btn-primary" href="viewDaftarSidang">Data Sidang </a>
-    <a type="Button" class="btn btn-inverse-primary" href="viewJadwal"> Jadwal Sidang </a>
+    <a type="Button" class="btn btn-inverse-primary" href="viewDaftarSidang">Data Sidang </a>
+    <a type="Button" class="btn btn-primary" href="viewJadwal"> Jadwal Sidang </a>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
@@ -17,7 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        ID Daftar Sidang
+                                        ID Sidang
                                     </th>
                                     <th>
                                         NIM
@@ -29,7 +29,7 @@
                                         Prodi
                                     </th>
                                     <th>
-                                        Judul Skripsi
+                                        Penguji
                                     </th>
                                     <th>
                                         Jenis Sidang
@@ -38,40 +38,42 @@
                                         Tanggal
                                     </th>
                                     <th>
-                                        Action
+                                        Jam
+                                    </th>
+                                    <th>
+                                        Ruangan
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sidang as $item)
+                                @foreach ($sidang[3] as $item)
                                     <tr>
                                         <td>
                                             {{ $item->id }}
                                         </td>
                                         <td>
-                                            {{ $item->nim }}
+                                            {{ $item->daftarSidang['nim'] }}
                                         </td>
                                         <td>
-                                            {{ $item->nama }}
+                                            {{ $item->daftarSidang['nama'] }}
                                         </td>
                                         <td>
                                             {{ $item->prodi['nama_prodi'] }}
                                         </td>
                                         <td>
-                                            {{ $item->judul_skripsi }}
+                                            {{ $item->dosen['name'] }}
                                         </td>
                                         <td>
-                                            {{ $item->jenis_sidang }}
+                                            {{ $item->daftarSidang['jenis_sidang'] }}
                                         </td>
                                         <td>
-                                            {{ $item->created_at }}
+                                            {{ $item->tanggal }}
                                         </td>
                                         <td>
-                                            <a type="button" href="/aturJadwal"
-                                                class="btn-sm btn-inverse-info btn-rounded m-lg-1" data-toggle="tooltip"
-                                                data-placement="top" title="Atur Jadwal Sidang">
-                                                <i class="mdi mdi-bulletin-board"></i>
-                                            </a>
+                                            {{ $item->jam }}
+                                        </td>
+                                        <td>
+                                            {{ $item->ruangan }}
                                         </td>
                                     </tr>
                             </tbody>

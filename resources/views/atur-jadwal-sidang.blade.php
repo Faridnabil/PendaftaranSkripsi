@@ -43,16 +43,6 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="nid_dosen">Dosen Penguji 2</label>
-                <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
-                    <div class="form-group">
-                        <option selected disabled>Select one</option>
-                        @foreach ($sidang[1] as $item)
-                            <option value="{{ $item->nid }}">{{ $item->name }}</option>
-                        @endforeach
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="tanggal">Tanggal Sidang</label>
                 <input type="date" class="form-control" name="tanggal" id="tanggal"
                     value="{{ old('tanggal') }}">

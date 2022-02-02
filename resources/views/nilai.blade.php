@@ -8,17 +8,17 @@
 @endsection
 
 @section('konten')
-    <a type="Button" class="btn btn-primary" href="daftarSidang">Daftar Sidang </a>
-    <a type="Button" class="btn btn-inverse-primary" href="viewJadwalMahasiswa"> Jadwal Sidang </a>
-    <h4>Daftar Sidang</h4>
-    <form action="simpanSidang" method="POST" enctype="multipart/form-data">
+    <h4>Pemberian Nilai</h4>
+    <a type="Button" class="btn btn-inverse-primary" href="pengajuan">Status Pengajuan </a>
+    <a type="Button" class="btn btn-primary" href="daftarPengajuan"> Daftar Pengajuan </a>
+    <form action="simpanPengajuan" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
                 <label for="nim">NIM</label>
-                <input type="text" class="form-control" id="nim" name="nim" value="{{ old('nim') }}">
+                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
                 @error('nim')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <strong>Warning!</strong>
@@ -28,10 +28,11 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}">
-                @error('nama')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
+                <label for="judul_proposal">Judul Proposal</label>
+                <input type="text" class="form-control" name="judul_proposal" id="judul_proposal"
+                    value="{{ old('judul_proposal') }}"> <br />
+                @error('judul_proposal')
+                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <strong>Warning!</strong>
@@ -40,37 +41,19 @@
                     </div>
                 @enderror
             </div>
+
             <div class="form-group">
-                <label for="id_prodi">Nama Prodi</label>
-                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
-                    <div class="form-group">
-                        <option selected disabled>Select one</option>
-                        @foreach ($sidang as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
-                        @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="judul_skripsi">Judul Skripsi</label>
-                <input type="text" class="form-control" id="judul_skripsi" name="judul_skripsi"
-                    value="{{ old('judul_skripsi') }}">
-                @error('judul_skripsi')
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong>
-                        <span> {{ $message }} </span>
-                        <br>
-                    </div>
+                <label>File Proposal</label>
+                <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+                @error('file')
+                    <p class="text-danger pt-1"><small> {{ $message }}</small></p>
                 @enderror
-            </div>
-            <div class="form-group">
-                <label for="jenis_sidang">Jenis Pengajuan</label>
-                <select class="custom-select" id="jenis_sidang" name="jenis_sidang" value="{{ old('jenis_sidang') }}">
-                    <option>Skripsi</option>
-                    <option>PKL</option>
-                    <option>Tugas Akhir</option>
-                </select>
             </div>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit">Submit</button>
         </table>

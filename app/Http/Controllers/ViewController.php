@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\daftar_sidang;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\Nilai;
 use App\Models\notaSidang;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
@@ -89,6 +90,40 @@ class ViewController extends Controller
         $data3 = daftar_sidang::all();
         $data = [$data1, $data2, $data3];
         return view('atur-jadwal-sidang', ['sidang' => $data]);
+    }
+
+    public function view_jadwal(){
+        $data1 = Prodi::all();
+        $data2 = Dosen::all();
+        $data3 = daftar_sidang::all();
+        $data4 = Sidang::all();
+        $data = [$data1, $data2, $data3, $data4];
+        return view('view-jadwal-sidang', ['sidang' => $data]);
+    }
+
+    public function view_jadwal_mhs(){
+        $data1 = Prodi::all();
+        $data2 = Dosen::all();
+        $data3 = daftar_sidang::all();
+        $data4 = Sidang::all();
+        $data = [$data1, $data2, $data3, $data4];
+        return view('view-jadwal-mahasiswa', ['sidang' => $data]);
+    }
+
+    public function viewNilai(){
+        $data = Sidang::all();
+        return view('hasil-nilai', ['nilai' => $data]);
+    }
+
+    public function viewDataNilai(){
+        $data = Sidang::all();
+        return view('data-nilai', ['nilai' => $data]);
+    }
+
+    public function nilai_penguji(){
+        $data1 = Sidang::all();
+        $data2 = Nilai::all();
+        return view('nilai', ['sidang' => $data1], ['nilai' => $data2]);
     }
 
     //Dashboard
