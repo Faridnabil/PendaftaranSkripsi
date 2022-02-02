@@ -22,4 +22,9 @@ class daftar_sidang extends Model
     {
         return $this->hasMany(Sidang::class);
     }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class);
+    }
 }

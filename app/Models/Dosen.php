@@ -18,7 +18,7 @@ class Dosen extends Model
         return $this->belongsTo(Prodi::class,'id_prodi');
     }
 
-    public function notaSidang()
+    public function nota()
     {
         return $this->hasMany(notaSidang::class);
     }

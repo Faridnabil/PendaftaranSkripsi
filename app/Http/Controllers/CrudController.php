@@ -85,7 +85,7 @@ class CrudController extends Controller
         return redirect('/pengajuan')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
-    //Edit & Update
+    //Edit & Update Pengajuan
     public function edit_pengajuan($idPengajuan)
     {
         $data = Pengajuan::find($idPengajuan);
@@ -147,7 +147,7 @@ class CrudController extends Controller
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => 'Terima'
+            'status' => "Diterima"
         ]);
         return redirect('/dataPengajuan');
     }
@@ -157,7 +157,7 @@ class CrudController extends Controller
         $data = Pengajuan::where('id', $id)->first();
 
         Pengajuan::where('id', $id)->update([
-            'status' => 'Tolak'
+            'status' => "Ditolak"
         ]);
         return redirect('/dataPengajuan');
     }
@@ -183,7 +183,7 @@ class CrudController extends Controller
             'batas_bimbingan' => $a->batas_bimbingan,
         ], $cekvalidasi);
 
-        return redirect('/daftar-nota')->with('Berhasil', 'Data berhasil di simpan!');
+        return redirect('/daftarNota')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
     //Daftar Sidang
@@ -212,6 +212,7 @@ class CrudController extends Controller
         return redirect('/daftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
+    //Jadwal Sidang
     public function simpan_jadwal(Request $a)
     {
         $messages = [
@@ -239,6 +240,7 @@ class CrudController extends Controller
         return redirect('/viewDaftarSidang')->with('Berhasil', 'Data berhasil di simpan!');
     }
 
+    //Nilai Penguji
     public function simpan_nilai(Request $a)
     {
         $messages = [
@@ -246,18 +248,52 @@ class CrudController extends Controller
         ];
 
         $cekvalidasi = $a->validate([
-            'id_sidang' => 'required',
+            'id_daftarSidang' => 'required',
+            'id_prodi' => 'required',
+            'nilai_penguji' => 'required',
+        ], $messages);
+
+        Nilai::create([
+            'id_daftarSidang' => $a->id_daftarSidang,
+            'id_prodi' => $a->id_prodi,
+            'nilai_penguji' => $a->nilai_penguji,
+        ], $cekvalidasi);
+
+        return redirect('/dataNilai')->with('Berhasil', 'Data berhasil di simpan!');
+    }
+
+    public function edit_nilai($id)
+    {
+        $data1 = daftar_sidang::all();
+        $data2 = Prodi::all();
+        $data3 = Nilai::find($id);
+
+        return view("edit-nilai", ['sidang' => $data1], ['prodi' => $data2], ['nilai' => $data3]);
+    }
+
+
+    public function update_nilai($id, Request $a)
+    {
+        //Validasi
+        $messages = [
+            'required' => 'Data harus diisi!',
+            'max' => 'Ukuran tidak boleh lebih dari 2mb',
+            'numeric' => 'Harus menggunakan angka',
+        ];
+        $cekValidasi = $a->validate([
+            'id_daftarSidang' => 'required',
+            'id_prodi' => 'required',
             'nilai_penguji' => 'required',
             'status' => 'required',
         ], $messages);
 
-        Nilai::create([
-            'id_sidang' => $a->id_sidang,
+        Nilai::where("id", "$id")->update([
+            'id_daftarSidang' => $a->id_daftarSidang,
+            'id_prodi' => $a->id_prodi,
             'nilai_penguji' => $a->nilai_penguji,
             'status' => $a->status,
-        ], $cekvalidasi);
-
-        return redirect('/viewDataNilai')->with('Berhasil', 'Data berhasil di simpan!');
+        ], $cekValidasi);
+        return redirect('/dataNilai')->with('toast_success', 'Data berhasil di update!');
     }
 
     //Input-Dashboard_Mahasiswa

@@ -9,15 +9,16 @@
 
 @section('konten')
     <h4>Pemberian Nilai</h4>
-    <a type="Button" class="btn btn-inverse-primary" href="pengajuan">Status Pengajuan </a>
-    <a type="Button" class="btn btn-primary" href="daftarPengajuan"> Daftar Pengajuan </a>
-    <form action="simpanPengajuan" method="POST" enctype="multipart/form-data">
+    <a type="Button" class="btn btn-primary" href="nilaiPenguji">Nilai </a>
+    <a type="Button" class="btn btn-inverse-primary" href="dataNilai"> Data Penilaian </a>
+    <form action="simpanNilai" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table>
             <div class="form-group">
-                <label for="nim">NIM</label>
-                <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"> <br />
-                @error('nim')
+                <label for="nilai_penguji">Nilai Penguji</label>
+                <input type="text" class="form-control" name="nilai_penguji" id="nilai_penguji"
+                    value="{{ old('nilai_penguji') }}">
+                @error('nilai_penguji')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
@@ -28,10 +29,16 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="judul_proposal">Judul Proposal</label>
-                <input type="text" class="form-control" name="judul_proposal" id="judul_proposal"
-                    value="{{ old('judul_proposal') }}"> <br />
-                @error('judul_proposal')
+                <label for="id_daftarSidang">Nama</label>
+                <select class="custom-select" id="id_daftarSidang" name="id_daftarSidang"
+                    value="{{ old('id_daftarSidang') }}">
+                    <div class="form-group">
+                        <option selected disabled>Select one</option>
+                        @foreach ($nilai[0] as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
+                </select>
+                @error('id_daftarSidang')
                     <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
@@ -41,18 +48,23 @@
                     </div>
                 @enderror
             </div>
-
             <div class="form-group">
-                <label>File Proposal</label>
-                <input type="file" class="file-upload-default" name="file" value="{{ old('file') }}">
-                <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
-                    <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                    </span>
-                </div>
-                @error('file')
-                    <p class="text-danger pt-1"><small> {{ $message }}</small></p>
+                <label for="id_prodi">Nama Prodi</label>
+                <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
+                    <div class="form-group">
+                        <option selected disabled>Select one</option>
+                        @foreach ($nilai[1] as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
+                        @endforeach
+                </select>
+                @error('id_prodi')
+                    <div class="alert alert-danger alert-dismissible" style="margin-top: -20px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong>
+                        <span> {{ $message }} </span>
+                        <br>
+                    </div>
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit">Submit</button>

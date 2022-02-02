@@ -17,8 +17,8 @@ class CreateNilaisTable extends Migration
             $table->id();
             $table->string('nilai_penguji', 50);
             $table->string('status', 50);
-            $table->unsignedBigInteger('id_sidang');
-            $table->foreign('id_sidang')->references('id')->on('sidang');
+            $table->unsignedBigInteger('id_daftarSidang');
+            $table->foreign('id_daftarSidang')->references('id')->on('daftar_sidang');
             $table->timestamps();
         });
     }

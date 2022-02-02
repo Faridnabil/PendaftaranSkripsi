@@ -111,19 +111,27 @@ class ViewController extends Controller
     }
 
     public function viewNilai(){
-        $data = Sidang::all();
+        $data1 = daftar_sidang::all();
+        $data2 = Prodi::all();
+        $data3 = Nilai::all();
+        $data = [$data1, $data2, $data3];
         return view('hasil-nilai', ['nilai' => $data]);
     }
 
     public function viewDataNilai(){
-        $data = Sidang::all();
+        $data1 = daftar_sidang::all();
+        $data2 = Prodi::all();
+        $data3 = Nilai::all();
+        $data = [$data1, $data2, $data3];
         return view('data-nilai', ['nilai' => $data]);
     }
 
     public function nilai_penguji(){
-        $data1 = Sidang::all();
-        $data2 = Nilai::all();
-        return view('nilai', ['sidang' => $data1], ['nilai' => $data2]);
+        $data1 = daftar_sidang::all();
+        $data2 = Prodi::all();
+        $data3 = Nilai::all();
+        $data = [$data1, $data2, $data3];
+        return view('nilai', ['nilai' => $data] );
     }
 
     //Dashboard

@@ -27,9 +27,4 @@ class Sidang extends Model
     {
         return $this->belongsTo(Dosen::class,'nid_dosen');
     }
-
-    public function nilai()
-    {
-        return $this->hasMany(Nilai::class);
-    }
 }

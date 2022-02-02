@@ -15,22 +15,40 @@
         {{ csrf_field() }}
         <table>
             <div class="form-group">
-                <label for="id_pengajuan">ID Pengajuan</label>
+                <label for="id_pengajuan">Judul Proposal</label>
                 <select class="custom-select" id="id_pengajuan" name="id_pengajuan" value="{{ old('id_pengajuan') }}">
                     <option selected disabled>Select one</option>
                     @foreach ($nota[2] as $item)
                         <option value="{{ $item->id }}">{{ $item->judul_proposal }}</option>
                     @endforeach
                 </select>
+                @error('id_pengajuan')
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong>
+                        <span> {{ $message }} </span>
+                        <br>
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="id_prodi">ID Prodi</label>
+                <label for="id_prodi">Nama Prodi</label>
                 <select class="custom-select" id="id_prodi" name="id_prodi" value="{{ old('id_prodi') }}">
                     <option selected disabled>Select one</option>
                     @foreach ($nota[0] as $item)
                         <option value="{{ $item->id }}">{{ $item->nama_prodi }}</option>
                     @endforeach
                 </select>
+                @error('id_prodi')
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong>
+                        <span> {{ $message }} </span>
+                        <br>
+                    </div>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -38,9 +56,18 @@
                 <select class="custom-select" id="nid_dosen" name="nid_dosen" value="{{ old('nid_dosen') }}">
                     <option selected disabled>Select one</option>
                     @foreach ($nota[1] as $item)
-                        <option value="{{ $item->nim }}">{{ $item->name }}</option>
+                        <option value="{{ $item->nid }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
+                @error('nid_dosen')
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Warning!</strong>
+                        <span> {{ $message }} </span>
+                        <br>
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="batas_bimbingan">Batas Bimbingan</label>
