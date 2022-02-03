@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 12:54 PM
+-- Generation Time: Feb 03, 2022 at 02:31 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -28,23 +28,23 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `dosen` (
-  `nid` bigint(20) NOT NULL,
-  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nid` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jenis_kelamin` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
   `id_prodi` bigint(20) UNSIGNED NOT NULL,
-  `id_user` bigint(20) UNSIGNED NOT NULL
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`nid`, `nama`, `email`, `jenis_kelamin`, `foto`, `created_at`, `updated_at`, `id_prodi`, `id_user`) VALUES
-(4001, 'Muhammad Nugraha, M.Eng', 'nugraha@pei.ac.id', 'Laki-Laki', '', NULL, NULL, 4, 0);
+INSERT INTO `dosen` (`nid`, `name`, `email`, `jenis_kelamin`, `foto`, `id_prodi`, `created_at`, `updated_at`) VALUES
+(4001, 'Muhammad Nugraha, M.Eng', 'nugraha@pei.ac.id', 'Laki-Laki', 'foto/1643729741-Nugraha.jpg', 4, NULL, NULL),
+(4002, 'Musawarman, S.Kom, M.M.S.I.', 'musawarman@pei.ac.id', 'Laki-Laki', 'foto/1643724686_Musawarman.png', 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,23 +70,25 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `mahasiswa` (
   `nim` bigint(20) UNSIGNED NOT NULL,
-  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_kelamin` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tahun_masuk` int(11) NOT NULL,
-  `foto` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis_kelamin` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tahun_masuk` int(11) DEFAULT NULL,
+  `foto` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `id_prodi` bigint(20) UNSIGNED NOT NULL
+  `id_prodi` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `email`, `jenis_kelamin`, `tahun_masuk`, `foto`, `created_at`, `updated_at`, `id_prodi`) VALUES
-(201904006, 'Farid Nabil Firdaus', 'faridnf121@gmail.com', 'Laki-Laki', 2019, '', NULL, NULL, 4),
-(201904014, 'Muhammad Algi Fachruli', 'malgi@gmail.com', 'Laki-Laki', 2019, '', NULL, NULL, 4);
+INSERT INTO `mahasiswa` (`nim`, `name`, `email`, `jenis_kelamin`, `tahun_masuk`, `foto`, `created_at`, `updated_at`, `id_prodi`) VALUES
+(201904001, 'Muhammad Fadhiil Yusuf', 'fadhil@gmail.com', 'Laki-Laki', 2019, 'foto/1643791832_Fadhiil.JPG', NULL, NULL, 4),
+(201904006, 'Farid Nabil Firdaus', 'faridnf121@gmail.com', 'Laki-Laki', 2019, 'foto/1643732639-Farid.JPG', NULL, NULL, 4),
+(201904014, 'Muhammad Algi Fachruli', 'malgi@gmail.com', 'Laki-Laki', 2019, 'foto/1643730147-Algi.JPG', NULL, NULL, 4),
+(201904019, 'Muhammad Yudhistira', 'yudhistiradwiki17@gmail.com', 'Laki-Laki', 2019, 'foto/1643732625-Yudhis.jpeg', NULL, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2022_01_13_100942_create_dosens_table', 3),
 (6, '2022_01_09_024138_create_mahasiswas_table', 5),
 (7, '2022_01_09_014852_create_permission_tables', 6),
-(8, '2022_01_09_010104_create_pengajuans_table', 7);
+(10, '2022_01_09_010104_create_pengajuans_table', 9),
+(12, '2022_01_31_013639_create_nota_sidangs_table', 10),
+(14, '2022_02_01_031656_create_daftar_sidangs_table', 11),
+(15, '2022_02_01_104705_create_sidangs_table', 12),
+(17, '2022_02_01_163207_create_nilais_table', 13);
 
 -- --------------------------------------------------------
 
@@ -124,21 +130,6 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pengajuan`
---
-
-CREATE TABLE `pengajuan` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nim` bigint(20) UNSIGNED NOT NULL,
-  `judul_proposal` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_proposal` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -176,19 +167,29 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `level` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `level`) VALUES
-(1, 'Farid Nabil Firdaus', 'faridnf121@gmail.com', NULL, '$2y$10$jskV7X8lOCDQmgpmiaTXGeumssXfJAcFc72A2ecc.v7r4EQXbXqjq', NULL, '2022-01-13 08:09:15', '2022-01-13 08:09:15', 'admin'),
-(2, 'Muhammad Algi Fachruli', 'malgi@gmail.com', NULL, '$2y$10$utand9rfLuzCZlY4okjtw.atfwR7tmrgy3ChC7JwvIZRWUdWWEUq.', NULL, '2022-01-15 19:40:16', '2022-01-15 19:40:16', 'mahasiswa');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `level`, `foto`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Farid Nabil Firdaus', 'faridnf121@gmail.com', NULL, '$2y$10$jskV7X8lOCDQmgpmiaTXGeumssXfJAcFc72A2ecc.v7r4EQXbXqjq', 'admin', NULL, NULL, '2022-01-13 08:09:15', '2022-01-13 08:09:15'),
+(2, 'Muhammad Algi Fachruli', 'malgi@gmail.com', NULL, '$2y$10$utand9rfLuzCZlY4okjtw.atfwR7tmrgy3ChC7JwvIZRWUdWWEUq.', 'mahasiswa', NULL, NULL, '2022-01-15 19:40:16', '2022-01-15 19:40:16'),
+(3, 'Muhammad Yudhistira', 'yudhistiradwiki17@gmail.com', NULL, '$2y$10$l5cOVnzrFVUmVsUxFS9sJOIgsglPsY/5D21HzX0Ny9x9wRO7el276', 'mahasiswa', NULL, NULL, '2022-01-29 04:56:33', '2022-01-29 04:56:33');
+
+--
+-- Triggers `users`
+--
+DELIMITER $$
+CREATE TRIGGER `trigger-nama_email` AFTER INSERT ON `users` FOR EACH ROW INSERT INTO mahasiswa VALUES(null,new.name, new.email,null,null,null,null,null,null)
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -198,9 +199,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`nid`),
-  ADD KEY `dosen_id_prodi_foreign` (`id_prodi`),
-  ADD KEY `id_user` (`id_user`);
+  ADD PRIMARY KEY (`nid`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -229,13 +228,6 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `pengajuan`
---
-ALTER TABLE `pengajuan`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pengajuan_nim_foreign` (`nim`);
-
---
 -- Indexes for table `prodi`
 --
 ALTER TABLE `prodi`
@@ -253,6 +245,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `dosen`
+--
+ALTER TABLE `dosen`
+  MODIFY `nid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4003;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -262,19 +260,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `nim` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201904015;
+  MODIFY `nim` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201904021;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `pengajuan`
---
-ALTER TABLE `pengajuan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `prodi`
@@ -286,29 +278,17 @@ ALTER TABLE `prodi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `dosen`
---
-ALTER TABLE `dosen`
-  ADD CONSTRAINT `dosen_id_prodi_foreign` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id`);
-
---
 -- Constraints for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   ADD CONSTRAINT `mahasiswa_id_prodi_foreign` FOREIGN KEY (`id_prodi`) REFERENCES `prodi` (`id`);
-
---
--- Constraints for table `pengajuan`
---
-ALTER TABLE `pengajuan`
-  ADD CONSTRAINT `pengajuan_nim_foreign` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
