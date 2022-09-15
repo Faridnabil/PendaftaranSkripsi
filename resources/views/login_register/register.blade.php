@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="{{ asset('Spica/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('Spica/images/favicon.png') }}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
@@ -32,7 +33,8 @@
                             </div>
                             <h4>New here?</h4>
                             <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-                            <form class="pt-3" method="POST" action="register_redirect" enctype="multipart/form-data">
+                            <form class="pt-3" method="POST" action="register_redirect"
+                                enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <table>
                                     <div class="form-group">
@@ -49,10 +51,10 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" name="email" id="email"
-                                            value="{{ old('email') }}">
-                                        @error('email')
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" name="username" id="username"
+                                            value="{{ old('username') }}">
+                                        @error('username')
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -75,13 +77,9 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="level">Level</label>
-                                        <select class="custom-select" id="level" name="level" value="{{old('level')}}">
-                                            <option selected disabled>Select one</option>
-                                            <option value="mahasiswa">Mahasiswa</option>
-                                            <option value="dosen">Dosen</option>
-                                        </select>
-                                        @error('email')
+                                        <input type="level" class="form-control" hidden="true" name="level"
+                                            id="level" value="User">
+                                        @error('level')
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -90,31 +88,31 @@
                                             </div>
                                         @enderror
                                     </div>
-                                        <button type="submit" class="btn btn-primary" name="submit"
-                                            value="Submit">Submit</button>
-                                        <div class="text-center mt-4 font-weight-light">
-                                            Already have an account? <a href="login" class="text-primary">Login</a>
-                                        </div>
-                                    </table>
-                                </form>
-                            </div>
+                                    <button type="submit" class="btn btn-primary" name="submit"
+                                        value="Submit">Submit</button>
+                                    <div class="text-center mt-4 font-weight-light">
+                                        Already have an account? <a href="login" class="text-primary">Login</a>
+                                    </div>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
             </div>
-            <!-- page-body-wrapper ends -->
+            <!-- content-wrapper ends -->
         </div>
-        <!-- container-scroller -->
-        <!-- base:js -->
-        <script src="{{ asset('Spica/vendors/js/vendor.bundle.base.js') }}"></script>
-        <!-- endinject -->
-        <script src="{{ asset('Spica/js/jquery.cookie.js') }}" type="text/javascript"></script>
-        <!-- inject:js -->
-        <script src="{{ asset('Spica/js/off-canvas.js') }}"></script>
-        <script src="{{ asset('Spica/js/hoverable-collapse.js') }}"></script>
-        <script src="{{ asset('Spica/js/template.js') }}"></script>
-        <!-- endinject -->
-    </body>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="{{ asset('Spica/vendors/js/vendor.bundle.base.js') }}"></script>
+    <!-- endinject -->
+    <script src="{{ asset('Spica/js/jquery.cookie.js') }}" type="text/javascript"></script>
+    <!-- inject:js -->
+    <script src="{{ asset('Spica/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('Spica/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('Spica/js/template.js') }}"></script>
+    <!-- endinject -->
+</body>
 
-    </html>
+</html>

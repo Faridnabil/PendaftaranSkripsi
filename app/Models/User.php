@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = "Users";
+    protected $table = "User";
     protected $primaryKey = "id";
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'level',
+        'name', 'username', 'password', 'level',
     ];
 
     /**
@@ -39,15 +39,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function mahasiswa()
-    {
-        return $this->hasMany(Mahasiswa::class);
-    }
-
-    public function fotoMahasiswa()
-    {
-        return $this->belongsTo(Mahasiswa::class,'id_user');
-    }
-
 }
