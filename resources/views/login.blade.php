@@ -36,9 +36,9 @@
                                     {{ session('loginError') }}
                                 @endif
                                 <div class="form-group">
-                                    <input type="username" class="form-control form-control-lg" id="exampleInputusername"
-                                        name="username" placeholder="Username" value="{{ old('username') }}">
-                                    @error('username')
+                                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail"
+                                        name="email" placeholder="Email" value="{{ old('email') }}">
+                                    @error('email')
                                         {{ $message }} <br>
                                     @enderror
                                 </div>
